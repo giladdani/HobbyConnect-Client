@@ -13,6 +13,9 @@ export const RegisterPage = () => {
             alert("User created!");
             window.location.href = '/login';
         }
+        else{
+            alert(response.data);
+        }
     }
 
     return(
@@ -38,30 +41,3 @@ export const RegisterPage = () => {
         </div>
     )
 }
-
-//     async handle_create_click(){
-//         const response = await this.create_user();
-//         const response_text = await response.text();
-//         alert(response_text);
-//         if (response.status === 201) {
-//             window.location.href = "/login.html";
-//         }
-//     }
-
-//     async create_user() {
-        // try{
-        //     const promise = fetch('/api/users',
-        //     {
-        //         headers: {
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json'
-        //         },
-        //         method: 'POST',
-        //         body: JSON.stringify({full_name: this.state.name, id: this.state.id, email: this.state.email, password: this.state.password})
-        //     })
-        //     return promise;
-        // }
-        // catch(err){
-        //     console.log(err);
-        // }
-// 	}

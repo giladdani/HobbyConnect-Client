@@ -11,12 +11,12 @@ export const LoginPage = () => {
         try{
             const response = await UsersService.login(username, password);
             if(response.status === 200){
-                const userToken = await response.text();
-                sessionStorage.setItem("userToken", userToken);
+                sessionStorage.setItem("userToken", response.data);
                 window.location.href = '/home';
             }
             else{
-                alert("Wrong credentials");
+                // alert the error message coming from the server
+                alert(response.data);
             }
         }
         catch(err){

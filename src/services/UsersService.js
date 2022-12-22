@@ -1,6 +1,6 @@
 // TODO: make URL const
 async function login(username, password) {
-    const promise = fetch('http://localhost:2718/api/users/login',
+    const response = await fetch('http://localhost:2718/api/users/login',
     {
         headers: {
             'Accept': 'application/json',
@@ -10,11 +10,13 @@ async function login(username, password) {
         body: JSON.stringify({username: username, password: password})
     })
 
-    return promise;
+    const data = await response.text();
+    return {status: response.status, data};
 }
 
 async function get_user_details(userToken) {
-    const response = await fetch('http://localhost:2718/api/users/about',
+    let data
+    const response = await fetch('http://localhost:2718/api/users/profile',
     {
         headers: {
             'Accept': 'application/json',
@@ -24,9 +26,13 @@ async function get_user_details(userToken) {
         method: 'GET'
     });
     
-    if (response.status !== 200) throw new Error('Error while fetching user details');
-    const data = await response.json();
-    return data;
+    if(response.status === 200){
+        data = await response.json();
+    }
+    else{
+        data = await response.text();
+    }
+    return {status: response.status, data};
 }
 
 async function create_user(user) {
@@ -39,8 +45,8 @@ async function create_user(user) {
         method: 'POST',
         body: JSON.stringify({username: user.username, password: user.password, fullName: user.fullName})
     })
-    if (response.status !== 201) throw new Error('Error while creating user');
-    return response;
+    const data = await response.text();
+    return {status: response.status, data};
 }
 
 module.exports = {

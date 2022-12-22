@@ -1,3 +1,32 @@
+import React from "react";
+import { GenerateGiftCode } from "../giftcodes/GenerateGiftCode";
+import { GrantCredits } from "../giftcodes/GrantCredits";
+
+export const AdminPage = () => {
+    return(
+        <div>
+            <h1 className="center_elem">Admin Console</h1>
+            <table className="full_width center_elem">
+                <tbody>
+                    <tr>
+                        <td>
+                            <h2>Manage Users</h2>
+                        </td>
+                        <td>
+                            <h2>Grant credit</h2>
+                            <GrantCredits />
+                        </td>
+                        <td>
+                            <h2>Generate gift code</h2>
+                            <GenerateGiftCode />
+                        </td> 
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    )
+}
+
 // class ManageUsers extends React.Component {
 // 	constructor(props) {
 // 		super(props);
@@ -137,25 +166,6 @@
 // 	}
     
 // 	render() {
-// 		return(
-//             <div>
-//                 <NavBar mode={this.state.navbar_mode}></NavBar>
-//                 <h1 className="center_elem">Admin Console</h1>
-//                 <table className="full_width center_elem">
-// 					<tbody>
-// 						<tr>
-// 							<td>
-//                                 <h2>Manage Users</h2>
-//                                 <ManageUsers user_token={this.state.user_token}></ManageUsers>
-// 							</td>
-// 							<td>
-// 								<h2>Send message to all</h2>
-// 								<SendMessageToAll user_token={this.state.user_token}></SendMessageToAll>
-// 							</td>
-// 						</tr>
-// 					</tbody>
-// 				</table>
-//             </div>
-//         )
+		
 // 	}
 // }

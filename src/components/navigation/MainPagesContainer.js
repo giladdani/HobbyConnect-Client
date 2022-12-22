@@ -8,6 +8,7 @@ import { ProfilePage } from '../profile/ProfilePage'
 import { LibraryPage } from '../library/LibraryPage'
 import { StorePage } from '../store/StorePage'
 import { FriendsPage } from '../friends/FriendsPage'
+import { AdminPage } from '../admin/AdminPage'
 
 export const MainPagesContainer = (props) => {
 
@@ -49,6 +50,12 @@ export const MainPagesContainer = (props) => {
       extra_fn: deleteToken
     }]
 
+    // TODO: only add this page if user role is admin
+    pages.push({
+      name: "Admin Console",
+      relativePath: "/admin",
+      element: <AdminPage />
+    })
     const routes = pages.map((page, index) => <Route path={page.relativePath} element={page.element} extra_fn={page.extra_fn} key={index} />);
 
     return(

@@ -1,10 +1,11 @@
 import React from 'react';
+import { FriendsViewer } from './FriendsViewer';
 
 export const FriendsPage = () => {
 	return (
 		<div className='center_elem'>
 			<h1>
-				You will see your friends here, unless you're a friendless loser.
+				<FriendsViewer/>
 			</h1>
 		</div>
 	)
