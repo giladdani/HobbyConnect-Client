@@ -13,11 +13,11 @@ export const AdminPage = () => {
                             <h2>Manage Users</h2>
                         </td>
                         <td>
-                            <h2>Grant credit</h2>
+                            <h2>Grant Credits</h2>
                             <GrantCredits />
                         </td>
                         <td>
-                            <h2>Generate gift code</h2>
+                            <h2>Generate Gift Code</h2>
                             <GenerateGiftCode />
                         </td> 
                     </tr>

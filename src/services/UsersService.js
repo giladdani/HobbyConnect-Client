@@ -15,7 +15,7 @@ async function login(username, password) {
 }
 
 async function get_user_details(userToken) {
-    let data
+    let data;
     const response = await fetch('http://localhost:2718/api/users/profile',
     {
         headers: {
@@ -49,8 +49,24 @@ async function create_user(user) {
     return {status: response.status, data};
 }
 
+async function send_friend_request(userToken, username) {
+    const response = await fetch('http://localhost:2718/api/users/friends',
+    {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': userToken
+        },
+        method: 'POST',
+        body: JSON.stringify({username: username})
+    })
+    const data = await response.text();
+    return {status: response.status, data};
+}
+
 module.exports = {
     login,
     get_user_details,
-    create_user
+    create_user,
+    send_friend_request
 }

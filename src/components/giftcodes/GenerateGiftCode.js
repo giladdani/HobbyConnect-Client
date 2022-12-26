@@ -31,7 +31,7 @@ export const GenerateGiftCode = () => {
                         </select>
                     </td>
                 </tr>
-                <tr><td><input type="button" value="Generate" onClick={generate_code}></input></td></tr>
+                <tr><td><button onClick={generate_code}>Generate</button></td></tr>
             </tbody>
         </table>
     )
