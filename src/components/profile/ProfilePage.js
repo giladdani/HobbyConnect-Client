@@ -9,11 +9,11 @@ export const ProfilePage = () => {
 				<tbody>
 					<tr>
 						<td>
-							<h2>User details</h2>
+							<h2>User Details</h2>
 							<UserDetails />
 						</td>
 						<td>
-							<h2>Redeem gift code</h2>
+							<h2>Redeem Gift Code</h2>
 							<RedeemGiftCode />
 						</td>
 					</tr>
