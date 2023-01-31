@@ -6,6 +6,7 @@ import { NavBar } from './NavBar'
 import { HomePage } from '../HomePage'
 import { ProfilePage } from '../profile/ProfilePage'
 import { GamesPage } from '../games/GamesPage'
+import { GameDetailsPage } from '../games/GameDetailsPage'
 import { StorePage } from '../store/StorePage'
 import { FriendsPage } from '../friends/FriendsPage'
 import { AdminPage } from '../admin/AdminPage'
@@ -48,6 +49,9 @@ export const MainPagesContainer = (props) => {
       relativePath: "/login",
       element: <LoginPage />,
       extra_fn: deleteToken
+    },{
+      relativePath: "games/:id",
+      element: <GameDetailsPage />
     }]
 
     // TODO: only add this page if user role is admin
@@ -56,6 +60,7 @@ export const MainPagesContainer = (props) => {
       relativePath: "/admin",
       element: <AdminPage />
     })
+    
     const routes = pages.map((page, index) => <Route path={page.relativePath} element={page.element} extra_fn={page.extra_fn} key={index} />);
 
     return(
