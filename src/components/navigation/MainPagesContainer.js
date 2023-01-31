@@ -5,7 +5,7 @@ import { LoginPage } from '../login/LoginPage'
 import { NavBar } from './NavBar'
 import { HomePage } from '../HomePage'
 import { ProfilePage } from '../profile/ProfilePage'
-import { LibraryPage } from '../library/LibraryPage'
+import { GamesPage } from '../games/GamesPage'
 import { StorePage } from '../store/StorePage'
 import { FriendsPage } from '../friends/FriendsPage'
 import { AdminPage } from '../admin/AdminPage'
@@ -32,9 +32,9 @@ export const MainPagesContainer = (props) => {
       relativePath: "/store",
       element: <StorePage />
     },{
-      name: "Library",
-      relativePath: "/library",
-      element: <LibraryPage />
+      name: "Games",
+      relativePath: "/games",
+      element: <GamesPage />
     },{
       name: "Friends",
       relativePath: "/friends",
