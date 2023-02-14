@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import logo from "../../images/logo.png"
-import UsersService from "../../services/UsersService"
 import { NavLink } from "react-router-dom"
+const logo =  require("../../images/logo.png")
+const UsersService = require("../../services/UsersService");
 
 export const LoginPage = () => {
     const [username, setUsername] = useState("")
@@ -37,10 +37,10 @@ export const LoginPage = () => {
                         <td><label>Password:</label></td><td><input type="password" value={password} onChange={(newValue) => { setPassword(newValue.target.value)}}/></td>
                     </tr>
                     <tr>
-                        <td colSpan="2"><label>Don't have an account? <NavLink to="/register">Register</NavLink></label></td>
+                        <td colSpan={2}><label>Don't have an account? <NavLink to="/register">Register</NavLink></label></td>
                     </tr>
                     <tr>
-                        <td colSpan="2"><button onClick={try_login}>Login</button></td>
+                        <td colSpan={2}><button onClick={try_login}>Login</button></td>
                     </tr>
                 </tbody>
             </table>

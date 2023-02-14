@@ -1,5 +1,11 @@
+interface User {
+    username: string,
+    password: string,
+    fullName: string
+}
+
 // TODO: make URL const
-async function login(username, password) {
+async function login(username:string, password:string) {
     const response = await fetch('http://localhost:2718/api/users/login',
     {
         headers: {
@@ -14,7 +20,7 @@ async function login(username, password) {
     return {status: response.status, data};
 }
 
-async function get_user_details(userToken) {
+async function get_user_details(userToken:string) {
     let data;
     const response = await fetch('http://localhost:2718/api/users/profile',
     {
@@ -35,7 +41,7 @@ async function get_user_details(userToken) {
     return {status: response.status, data};
 }
 
-async function create_user(user) {
+async function create_user(user:User) {
     const response = await fetch('http://localhost:2718/api/users',
     {
         headers: {
@@ -49,7 +55,7 @@ async function create_user(user) {
     return {status: response.status, data};
 }
 
-async function send_friend_request(userToken, username) {
+async function send_friend_request(userToken:string, username:string) {
     const response = await fetch('http://localhost:2718/api/users/friends',
     {
         headers: {

@@ -1,6 +1,11 @@
 import { NavLink } from "react-router-dom"
 
-export const NavBarItem = (props) => {
+interface Page {
+    relativePath: string,
+    name: string
+}
+
+export const NavBarItem = (props:Page) => {
     return (
         <NavLink to={props.relativePath}>{props.name}</NavLink>
     )
