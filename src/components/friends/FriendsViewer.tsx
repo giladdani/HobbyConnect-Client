@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { UsersService } from '../../services/UsersService'
+const UsersService = require("../../services/UsersService");
 
-export const FriendsViewer = (props) => {
+interface Friend {
+    username: string
+}
 
-    const [friends, setFriends] = useState([]);
+export const FriendsViewer = () => {
+
+    const [friends, setFriends] = useState<null | Friend[]>([]);
 
 	useEffect(() => {
         async function fetch_friends() {
@@ -18,7 +22,7 @@ export const FriendsViewer = (props) => {
         fetch_friends();
     }, [])
 
-	const friendsList = friends.map((friend) => <li>{friend.username}</li>)
+	const friendsList = friends ? friends.map((friend) => <li>{friend.username}</li> ) : []
 
 	return (
 		<>

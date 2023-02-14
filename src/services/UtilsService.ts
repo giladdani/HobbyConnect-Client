@@ -1,4 +1,4 @@
-async function generate_gift_code(userToken, amount) {
+async function generate_gift_code(userToken:string, amount:string) {
     const response = await fetch('http://localhost:2718/api/giftcodes',
     {
         headers: {
@@ -14,7 +14,7 @@ async function generate_gift_code(userToken, amount) {
     return {status: response.status, data};
 }
 
-async function redeem_gift_code(userToken, code) {
+async function redeem_gift_code(userToken:string, code:string) {
     const response = await fetch('http://localhost:2718/api/giftcodes',
     {
         headers: {
@@ -30,7 +30,7 @@ async function redeem_gift_code(userToken, code) {
     return {status: response.status, data};
 }
 
-async function grant_credits(userToken, amount, username) {
+async function grant_credits(userToken:string, amount:string, username:string) {
     const response = await fetch(`http://localhost:2718/api/users/${username}/credits`,
     {
         headers: {

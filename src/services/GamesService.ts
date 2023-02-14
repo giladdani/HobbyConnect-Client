@@ -13,7 +13,7 @@ async function fetch_games() {
     return {status: response.status, data};
 }
 
-async function fetch_game_data(id) {
+async function fetch_game_data(id:string) {
     const response = await fetch(`http://localhost:2718/api/games/${id}`,
     {
         headers: {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { FriendsViewer } from './FriendsViewer';
-import UsersService from '../../services/UsersService';
+const UsersService = require("../../services/UsersService");
 
 export const FriendsPage = () => {
 	const [username, setUsername] = useState("");

@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import GamesService from '../../services/GamesService';
+import { Link } from "react-router-dom";
+const GamesService = require("../../services/GamesService");
+
+interface Game {
+    id: number,
+    name: string
+}
 
 export const GamesPage = () => {
-    const [games, setGames] = useState([]);
+    const [games, setGames] = useState<null | Game[]>([]);
 
 	useEffect(() => {
         async function fetch_games() {

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import logo from "../../images/logo.png";
-import UsersService from '../../services/UsersService'
+const logo =  require("../../images/logo.png")
+const UsersService = require("../../services/UsersService");
 
 export const RegisterPage = () => {
     const [username, setUsername] = useState("");
@@ -34,7 +34,7 @@ export const RegisterPage = () => {
                         <td><label>Full Name:</label></td><td><input type="text" value={fullName} onChange={(newValue) => { setFullName(newValue.target.value) }}></input></td>
                     </tr>
                     <tr>
-                        <td colSpan="2"><button onClick={create_user}>Create</button></td>
+                        <td colSpan={2}><button onClick={create_user}>Create</button></td>
                     </tr>
                 </tbody>
             </table>
