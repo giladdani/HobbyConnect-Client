@@ -27,7 +27,13 @@ async function fetch_game_data(id:string) {
     return {status: response.status, data};
 }
 
-module.exports = {
+const GamesService = {
     fetch_games,
     fetch_game_data
 }
+export default GamesService;
+
+// module.exports = {
+//     fetch_games,
+//     fetch_game_data
+// }

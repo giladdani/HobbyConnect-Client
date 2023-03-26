@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-const UtilsService = require("../../services/UtilsService");
+import UtilsService from '../../services/UtilsService'
+// const UtilsService = require("../../services/UtilsService");
 
 export const GrantCredits = () => {
 	const [username, setUsername] = useState("")
     const [amount, setAmount] = useState("")
 
     const grant_credits = async() => {
-        const response = await UtilsService.grant_credits(sessionStorage.getItem("userToken"), amount, username);
+        const response = await UtilsService.grant_credits(sessionStorage.getItem("userToken")||"", amount, username);
         if(response.status === 200) {
             alert("Credit granted!");
         }

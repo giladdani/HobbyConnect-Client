@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-const UsersService = require("../../services/UsersService");
+import UsersService from '../../services/UsersService';
+// const UsersService = require("../../services/UsersService");
 
 export const FriendsPage = () => {
 	const [username, setUsername] = useState("");
 	
 	const send_request = async() => {
-		const response = await UsersService.send_friend_request(sessionStorage.getItem("userToken"), username);
+		const response = await UsersService.send_friend_request(sessionStorage.getItem("userToken")||"", username);
         if(response.status === 201) {
             alert("Request sent!");
         }

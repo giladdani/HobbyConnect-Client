@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-const UtilsService = require("../../services/UtilsService");
+import UtilsService from '../../services/UtilsService'
+// const UtilsService = require("../../services/UtilsService");
 
 export const GenerateGiftCode = () => {
 
@@ -7,7 +8,7 @@ export const GenerateGiftCode = () => {
     const [selectedAmount, setSelectedAmount] = useState(1);
 
     const generate_code = async() => {
-        const response = await UtilsService.generate_gift_code(sessionStorage.getItem("userToken"), selectedAmount);
+        const response = await UtilsService.generate_gift_code(sessionStorage.getItem("userToken")||"", selectedAmount);
         if(response.status === 201){
             setCode(response.data);
         }

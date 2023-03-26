@@ -1,4 +1,4 @@
-async function generate_gift_code(userToken:string, amount:string) {
+async function generate_gift_code(userToken:any, amount:any) {
     const response = await fetch('http://localhost:2718/api/giftcodes',
     {
         headers: {
@@ -46,8 +46,16 @@ async function grant_credits(userToken:string, amount:string, username:string) {
     return {status: response.status, data};
 }
 
-module.exports = {
+const UtilsService = {
     generate_gift_code,
     redeem_gift_code,
     grant_credits
 }
+
+export default UtilsService;
+
+// module.exports = {
+//     generate_gift_code,
+//     redeem_gift_code,
+//     grant_credits
+// }

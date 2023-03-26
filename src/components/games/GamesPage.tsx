@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-const GamesService = require("../../services/GamesService");
+import GamesService from "../../services/GamesService";
+// const GamesService = require("../../services/GamesService");
 
 interface Game {
     id: number,

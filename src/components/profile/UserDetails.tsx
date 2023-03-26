@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-const UsersService = require("../../services/UsersService");
+import UsersService from '../../services/UsersService'
+// const UsersService = require("../../services/UsersService");
 
 interface User {
     username: string,
@@ -14,7 +15,7 @@ export const UserDetails = () => {
 
     useEffect(() => {
         async function fetch_user() {
-            const response = await UsersService.get_user_details(sessionStorage.getItem("userToken"));
+            const response = await UsersService.get_user_details(sessionStorage.getItem("userToken") || "");
             if(response.status === 200){
                 setUser(response.data);
             }
