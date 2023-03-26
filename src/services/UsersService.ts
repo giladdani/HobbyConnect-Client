@@ -70,9 +70,17 @@ async function send_friend_request(userToken:string, username:string) {
     return {status: response.status, data};
 }
 
-module.exports = {
+const UsersService = {
     login,
     get_user_details,
     create_user,
     send_friend_request
 }
+export default UsersService;
+
+// module.exports = {
+//     login,
+//     get_user_details,
+//     create_user,
+//     send_friend_request
+// }

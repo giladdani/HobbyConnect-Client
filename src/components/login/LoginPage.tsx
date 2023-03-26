@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import { NavLink } from "react-router-dom"
+import UsersService from '../../services/UsersService';
 const logo =  require("../../images/logo.png")
-const UsersService = require("../../services/UsersService");
+// const UsersService = require("../../services/UsersService");
 
 export const LoginPage = () => {
     const [username, setUsername] = useState("")
