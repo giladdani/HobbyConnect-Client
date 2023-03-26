@@ -6,7 +6,7 @@ interface User {
 
 // TODO: make URL const
 async function login(username:string, password:string) {
-    const response = await fetch('https://gamehub-server-production.up.railway.app/api/users/login',
+    const response = await fetch('https://gamehub-server-production.up.railway.app:2718/api/users/login',
     {
         headers: {
             'Accept': 'application/json',
