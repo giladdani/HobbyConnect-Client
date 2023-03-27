@@ -4,9 +4,8 @@ interface User {
     fullName: string
 }
 
-// TODO: make URL const
 async function login(username:string, password:string) {
-    const response = await fetch('http://localhost:2718/api/users/login',
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}:${process.env.REACT_APP_SERVER_PORT}/api/users/login`,
     {
         headers: {
             'Accept': 'application/json',
@@ -22,7 +21,7 @@ async function login(username:string, password:string) {
 
 async function get_user_details(userToken:string) {
     let data;
-    const response = await fetch('http://localhost:2718/api/users/profile',
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}:${process.env.REACT_APP_SERVER_PORT}/api/users/profile`,
     {
         headers: {
             'Accept': 'application/json',
@@ -42,7 +41,7 @@ async function get_user_details(userToken:string) {
 }
 
 async function create_user(user:User) {
-    const response = await fetch('http://localhost:2718/api/users',
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}:${process.env.REACT_APP_SERVER_PORT}/api/users`,
     {
         headers: {
             'Accept': 'application/json',
@@ -56,7 +55,7 @@ async function create_user(user:User) {
 }
 
 async function send_friend_request(userToken:string, username:string) {
-    const response = await fetch('http://localhost:2718/api/users/friends',
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}:${process.env.REACT_APP_SERVER_PORT}/api/users/friends`,
     {
         headers: {
             'Accept': 'application/json',
