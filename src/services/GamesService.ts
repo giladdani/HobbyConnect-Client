@@ -1,6 +1,6 @@
 // TODO: make URL const
 async function fetch_games() {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}:${process.env.REACT_APP_SERVER_PORT}/api/games`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/games`,
     {
         headers: {
             'Accept': 'application/json',
@@ -14,7 +14,7 @@ async function fetch_games() {
 }
 
 async function fetch_game_data(id:string) {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}:${process.env.REACT_APP_SERVER_PORT}/api/games/${id}`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/games/${id}`,
     {
         headers: {
             'Accept': 'application/json',
