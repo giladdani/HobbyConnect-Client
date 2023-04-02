@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import UtilsService from '../../services/UtilsService'
-// const UtilsService = require("../../services/UtilsService");
 
 export const GenerateGiftCode = () => {
 
