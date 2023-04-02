@@ -18,7 +18,7 @@ export const RedeemGiftCode = () => {
 	return (
 		<>
             <input type="text" value={code} onChange={(newValue) => { setCode(newValue.target.value) }}></input>
-            <input type="button" value="Generate" onClick={redeem_code}></input>
+            <input type="button" value="Redeem" onClick={redeem_code}></input>
         </>
 	)
 }
