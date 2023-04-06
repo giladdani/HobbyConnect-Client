@@ -9,6 +9,7 @@ import { GameDetailsPage } from '../games/GameDetailsPage'
 import { StorePage } from '../store/StorePage'
 import { FriendsPage } from '../friends/FriendsPage'
 import { AdminPage } from '../admin/AdminPage'
+import { EventsPage } from '../events/EventsPage'
 const logo =  require("../../images/logo.png")
 
 export const MainPagesContainer = () => {
@@ -36,6 +37,10 @@ export const MainPagesContainer = () => {
     name: "Games",
     relativePath: "/games",
     element: <GamesPage />
+  },{
+    name: "Events",
+    relativePath: "/events",
+    element: <EventsPage />
   },{
     name: "Friends",
     relativePath: "/friends",

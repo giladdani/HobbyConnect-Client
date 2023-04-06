@@ -1,4 +1,3 @@
-// TODO: make URL const
 async function fetch_games() {
     const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/games`,
     {
