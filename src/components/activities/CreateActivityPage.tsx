@@ -1,9 +1,5 @@
 import React, {useState} from "react";
 import ActivitiesService from '../../services/ActivitiesService';
-import dayjs, { Dayjs } from 'dayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 const logo =  require("../../images/logo.png")
 
@@ -11,7 +7,7 @@ export const CreateActivityPage = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
-    const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs('2022-04-17T15:30'))
+    const [dateTime, setDateTime] = useState(new Date())
     const [location, setLocation] = useState("")
     const [ticketPrice, seTicketPrice] = useState(0)
     const [totalTickets, setTotalTickets] = useState(0)
@@ -40,16 +36,7 @@ export const CreateActivityPage = () => {
                         <td><label>Category:</label></td><td><input type="text" value={category} onChange={(newValue) => { setCategory(newValue.target.value) }}></input></td>
                     </tr>
                     <tr>
-                        <td><label>Date & Time:</label></td>
-                        <td>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DateTimePicker
-                                    value={dateTime}
-                                    onChange={(newValue) => setDateTime(newValue)}
-                                    ampm={false}
-                                />
-                            </LocalizationProvider>
-                        </td>
+                        <td><label>Date & Time:</label><input type="datetime-local"></input></td>
                     </tr>
                     <tr>
                         <td><label>Location:</label></td><td><input type="text" value={location} onChange={(newValue) => { setLocation(newValue.target.value) }}></input></td>
