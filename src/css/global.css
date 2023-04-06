@@ -91,3 +91,8 @@ textarea{
     max-width: 300px;
     max-height: 300px;
 }
+
+.MuiOutlinedInput-root,
+.MuiIconButton-root {
+    color: white!important;
+}
