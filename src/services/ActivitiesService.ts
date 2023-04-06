@@ -9,7 +9,7 @@ interface Activity {
 }
 
 async function fetch_activities() {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/activities`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}:${process.env.REACT_APP_SERVER_PORT}/api/activities`,
     {
         headers: {
             'Accept': 'application/json',
@@ -23,7 +23,7 @@ async function fetch_activities() {
 }
 
 async function fetch_activity_by_id(id:string) {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/activities/${id}`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}:${process.env.REACT_APP_SERVER_PORT}/api/activities/${id}`,
     {
         headers: {
             'Accept': 'application/json',
@@ -37,7 +37,7 @@ async function fetch_activity_by_id(id:string) {
 }
 
 async function create_activity(activity:Activity, userToken:string) {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/events`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}:${process.env.REACT_APP_SERVER_PORT}/api/events`,
     {
         headers: {
             'Accept': 'application/json',
