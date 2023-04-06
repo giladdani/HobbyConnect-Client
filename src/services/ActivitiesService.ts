@@ -1,15 +1,15 @@
-interface Event {
+interface Activity {
     title: string,
     description: string,
     category: string,
-    time: Date,
+    dateTime: any,
     location: string,
     ticketPrice: number,
     totalTickets: number
 }
 
-async function fetch_events() {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/events`,
+async function fetch_activities() {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/activities`,
     {
         headers: {
             'Accept': 'application/json',
@@ -22,8 +22,8 @@ async function fetch_events() {
     return {status: response.status, data};
 }
 
-async function fetch_event_data(id:string) {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/events/${id}`,
+async function fetch_activity_by_id(id:string) {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/activities/${id}`,
     {
         headers: {
             'Accept': 'application/json',
@@ -36,7 +36,7 @@ async function fetch_event_data(id:string) {
     return {status: response.status, data};
 }
 
-async function create_event(event:Event, userToken:string) {
+async function create_activity(activity:Activity, userToken:string) {
     const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/events`,
     {
         headers: {
@@ -45,20 +45,15 @@ async function create_event(event:Event, userToken:string) {
             'authorization': userToken
         },
         method: 'POST',
-        body: JSON.stringify({title: event.title, description: event.description, category: event.category, time: event.time, location: event.location, ticket_price: event.ticketPrice, tickets_left: event.totalTickets})
+        body: JSON.stringify({title: activity.title, description: activity.description, category: activity.category, time: activity.dateTime, location: activity.location, ticket_price: activity.ticketPrice, tickets_left: activity.totalTickets})
     })
     const data = await response.text();
     return {status: response.status, data};
 }
 
-const EventsService = {
-    fetch_events,
-    fetch_event_data,
-    create_event
+const ActivitiesService = {
+    fetch_activities,
+    fetch_activity_by_id,
+    create_activity
 }
-export default EventsService;
-
-// module.exports = {
-//     fetch_games,
-//     fetch_game_data
-// }
+export default ActivitiesService;

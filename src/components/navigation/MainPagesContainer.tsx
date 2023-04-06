@@ -4,12 +4,11 @@ import { LoginPage } from '../login/LoginPage'
 import { NavBar } from './NavBar'
 import { HomePage } from '../HomePage'
 import { ProfilePage } from '../profile/ProfilePage'
-import { GamesPage } from '../games/GamesPage'
-import { GameDetailsPage } from '../games/GameDetailsPage'
-import { StorePage } from '../store/StorePage'
+import { ActivityDetailsPage } from '../activities/ActivityDetailsPage'
+import { ExplorePage } from '../explore/ExplorePage'
+import { CreateActivityPage } from '../activities/CreateActivityPage'
 import { FriendsPage } from '../friends/FriendsPage'
 import { AdminPage } from '../admin/AdminPage'
-import { EventsPage } from '../events/EventsPage'
 const logo =  require("../../images/logo.png")
 
 export const MainPagesContainer = () => {
@@ -29,19 +28,18 @@ export const MainPagesContainer = () => {
     name: "Home",
     relativePath: "/home",
     element: <HomePage />,
-  },{
-    name: "Store",
-    relativePath: "/store",
-    element: <StorePage />
-  },{
-    name: "Games",
-    relativePath: "/games",
-    element: <GamesPage />
-  },{
-    name: "Events",
-    relativePath: "/events",
-    element: <EventsPage />
-  },{
+  },
+  {
+    name: "Explore",
+    relativePath: "/explore",
+    element: <ExplorePage />
+  },
+  {
+    name: "Create",
+    relativePath: "/create",
+    element: <CreateActivityPage />
+  },
+  {
     name: "Friends",
     relativePath: "/friends",
     element: <FriendsPage />
@@ -56,8 +54,8 @@ export const MainPagesContainer = () => {
     extra_fn: deleteToken
   },{
     name: "",
-    relativePath: "games/:id",
-    element: <GameDetailsPage />
+    relativePath: "explore/:id",
+    element: <ActivityDetailsPage />
   }]
   // TODO: only add this page if user role is admin
   pages.push({

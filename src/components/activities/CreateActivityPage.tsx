@@ -1,21 +1,25 @@
 import React, {useState} from "react";
-import DatePicker from 'react-date-picker'
-import EventsService from '../../services/EventsService';
+import ActivitiesService from '../../services/ActivitiesService';
+import dayjs, { Dayjs } from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+
 const logo =  require("../../images/logo.png")
 
-export const CreateEvent = () => {
+export const CreateActivityPage = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
-    const [time, setTime] = useState(new Date())
+    const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs('2022-04-17T15:30'))
     const [location, setLocation] = useState("")
     const [ticketPrice, seTicketPrice] = useState(0)
     const [totalTickets, setTotalTickets] = useState(0)
 
-    const create_event = async() => {
-        const response = await EventsService.create_event({title, description, category, time, location, ticketPrice, totalTickets}, sessionStorage.getItem("userToken") || "");
+    const createActivity = async() => {
+        const response = await ActivitiesService.create_activity({title, description, category, dateTime, location, ticketPrice, totalTickets}, sessionStorage.getItem("userToken") || "");
         if(response.status === 201){
-            alert("Event created!");
+            alert("Activity created!");
         }
         else{
             alert(response.data);
@@ -36,11 +40,17 @@ export const CreateEvent = () => {
                         <td><label>Category:</label></td><td><input type="text" value={category} onChange={(newValue) => { setCategory(newValue.target.value) }}></input></td>
                     </tr>
                     <tr>
-                        <td><label>Time:</label></td><td><DatePicker onChange={setTime} value={time}/></td>
+                        <td><label>Date & Time:</label></td>
+                        <td>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DateTimePicker
+                                    value={dateTime}
+                                    onChange={(newValue) => setDateTime(newValue)}
+                                    ampm={false}
+                                />
+                            </LocalizationProvider>
+                        </td>
                     </tr>
-                    {/* <tr>
-                        <td><label>Time:</label></td><td><input type="date" value={time} onChange={(newValue) => { setTime(new Date(newValue.target.value)) }}></input></td>
-                    </tr> */}
                     <tr>
                         <td><label>Location:</label></td><td><input type="text" value={location} onChange={(newValue) => { setLocation(newValue.target.value) }}></input></td>
                     </tr>
@@ -51,7 +61,7 @@ export const CreateEvent = () => {
                         <td><label>Total Tickets:</label></td><td><input type="number" value={totalTickets} onChange={(newValue) => { setTotalTickets(parseInt(newValue.target.value)) }}></input></td>
                     </tr>
                     <tr>
-                        <td colSpan={2}><button onClick={create_event}>Create</button></td>
+                        <td colSpan={2}><button onClick={createActivity}>Create</button></td>
                     </tr>
                 </tbody>
             </table>
