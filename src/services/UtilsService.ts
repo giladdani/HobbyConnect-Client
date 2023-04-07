@@ -1,5 +1,5 @@
 async function generate_gift_code(userToken:any, amount:any) {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/giftcodes`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/giftcodes`,
     {
         headers: {
             'Accept': 'application/json',
@@ -15,7 +15,7 @@ async function generate_gift_code(userToken:any, amount:any) {
 }
 
 async function redeem_gift_code(userToken:string, code:string) {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/giftcodes`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/giftcodes`,
     {
         headers: {
             'Accept': 'application/json',
@@ -31,7 +31,7 @@ async function redeem_gift_code(userToken:string, code:string) {
 }
 
 async function grant_credits(userToken:string, amount:string, username:string) {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/users/${username}/credits`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/${username}/credits`,
     {
         headers: {
             'Accept': 'application/json',
