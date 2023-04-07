@@ -5,7 +5,7 @@ interface User {
 }
 
 async function login(username:string, password:string) {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}:${process.env.REACT_APP_SERVER_PORT}/api/users/login`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/users/login`,
     {
         headers: {
             'Accept': 'application/json',
