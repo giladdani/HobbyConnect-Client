@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ActivitiesService from '../../services/ActivitiesService';
 import UsersService from '../../services/UsersService'
 import { ActivityView } from './ActivityView';
+import { act } from 'react-dom/test-utils';
 
 export const ExplorePage = () => {   
 	const [activities, setActivities] = useState([]);
@@ -38,6 +39,11 @@ export const ExplorePage = () => {
         setIsOnlyFriends(!isOnlyFriends);
       };
 
+    const buy_ticket = (activity:any) => {
+        console.log(activity);
+        alert("currently does nothing. need to sign user up for the activity and reduce balance")
+    }
+
 	return (
 		<div>
             <h1 className="center_elem">Explore activities</h1>
@@ -56,7 +62,7 @@ export const ExplorePage = () => {
                 {activities.map((activity, index) => (
                     <div className="border">
                         <ActivityView key={index} activity={activity} />
-                        <button>Buy ticket</button>
+                        <button onClick={() => buy_ticket(activity)} key={index}>Buy ticket</button>
                     </div>
                 ))}
             </div>

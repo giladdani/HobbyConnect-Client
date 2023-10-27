@@ -14,6 +14,9 @@ export const ActivityView = ({activity}:any) => {
                         <td><b>Description</b>: {activity.description}</td>
                     </tr>
                     <tr>
+                        <td><b>Creator</b>: {activity.creator}</td>
+                    </tr>
+                    <tr>
                         <td><b>Category</b>: {activity.category}</td>
                     </tr>
                     <tr>
