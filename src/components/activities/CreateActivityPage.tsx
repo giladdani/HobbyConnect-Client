@@ -7,7 +7,8 @@ export const CreateActivityPage = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
-    const [dateTime, setDateTime] = useState(new Date())
+    // const [dateTime, setDateTime] = useState(new Date())
+    const [dateTime, setDateTime] = useState("")
     const [location, setLocation] = useState("")
     const [ticketPrice, seTicketPrice] = useState(0)
     const [totalTickets, setTotalTickets] = useState(0)
@@ -24,19 +25,20 @@ export const CreateActivityPage = () => {
 
     return(
         <div>
+            <h1 className="center_elem">Create activity</h1>
             <table className="medium_window center_elem">
                 <tbody>
                     <tr>
                         <td><label>Title:</label></td><td><input type="text" value={title} onChange={(newValue) => { setTitle(newValue.target.value) }}></input></td>
                     </tr>
                     <tr>
-                        <td><label>Description:</label></td><td><input type="text" value={description} onChange={(newValue) => { setDescription(newValue.target.value) }}></input></td>
+                        <td><label>Description:</label></td><td><textarea value={description} onChange={(newValue) => { setDescription(newValue.target.value) }}></textarea></td>
                     </tr>
                     <tr>
                         <td><label>Category:</label></td><td><input type="text" value={category} onChange={(newValue) => { setCategory(newValue.target.value) }}></input></td>
                     </tr>
                     <tr>
-                        <td><label>Date & Time:</label><input type="datetime-local"></input></td>
+                        <td><label>Date & Time:</label></td><td><input type="datetime-local" value={dateTime} onChange={(newValue) => { setDateTime(newValue.target.value) }}></input></td>
                     </tr>
                     <tr>
                         <td><label>Location:</label></td><td><input type="text" value={location} onChange={(newValue) => { setLocation(newValue.target.value) }}></input></td>

@@ -69,10 +69,32 @@ async function send_friend_request(userToken:string, username:string) {
     return {status: response.status, data};
 }
 
+async function get_user_balance(userToken:string) {
+    let data;
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/balance`,
+    {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': userToken
+        },
+        method: 'GET'
+    });
+    
+    if(response.status === 200){
+        data = await response.json();
+    }
+    else{
+        data = await response.text();
+    }
+    return {status: response.status, data};
+}
+
 const UsersService = {
     login,
     get_user_details,
     create_user,
-    send_friend_request
+    send_friend_request,
+    get_user_balance
 }
 export default UsersService;

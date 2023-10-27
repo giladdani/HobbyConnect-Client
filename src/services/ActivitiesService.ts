@@ -37,7 +37,7 @@ async function fetch_activity_by_id(id:string) {
 }
 
 async function create_activity(activity:Activity, userToken:string) {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/events`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/activities`,
     {
         headers: {
             'Accept': 'application/json',

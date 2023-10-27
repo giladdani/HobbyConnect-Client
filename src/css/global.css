@@ -96,3 +96,11 @@ textarea{
 .MuiIconButton-root {
     color: white!important;
 }
+
+.two_column {
+    float: left;
+    width: 50%; /* Each column takes up 33.33% of the width */
+    padding: 15px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    border: 1px solid #ccc; /* Optional: Add border for better visibility */
+  }
