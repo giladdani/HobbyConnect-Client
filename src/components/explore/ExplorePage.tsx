@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
 import ActivitiesService from '../../services/ActivitiesService';
 import UsersService from '../../services/UsersService'
 import { ActivityView } from './ActivityView';
-import { act } from 'react-dom/test-utils';
 
 export const ExplorePage = () => {   
 	const [activities, setActivities] = useState([]);
@@ -11,37 +9,70 @@ export const ExplorePage = () => {
     const [userBalance, setUserBalance] = useState(0);
 
 	useEffect(() => {
-        async function fetch_activities() {
-            const response = await ActivitiesService.fetch_activities();
-            if(response.status === 200){
-                setActivities(JSON.parse(response.data));
-            }
-            else{
-                alert(response.data)
-            }
-        }
+        // async function fetch_activities() {
+        //     const response = await ActivitiesService.fetch_activities();
+        //     if(response.status === 200){
+        //         setActivities(JSON.parse(response.data));
+        //     }
+        //     else{
+        //         alert(response.data)
+        //     }
+        // }
 
-        async function fetch_user_balance() {
-            const response = await UsersService.get_user_balance(sessionStorage.getItem("userToken") || "");
-            if(response.status === 200){
-                setUserBalance(response.data.balance);
-            }
-            else{
-                alert(response.data)
-            }
-        }
+        // async function fetch_user_balance() {
+        //     const response = await UsersService.get_user_balance(sessionStorage.getItem("userToken") || "");
+        //     if(response.status === 200){
+        //         setUserBalance(response.data.balance);
+        //     }
+        //     else{
+        //         alert(response.data)
+        //     }
+        // }
 
         fetch_user_balance();
         fetch_activities();
     }, [])
 
-    const OnIsOnlyFriendsChange = () => {
-        setIsOnlyFriends(!isOnlyFriends);
-      };
+    const fetch_activities = async () => {
+        const response = await ActivitiesService.fetch_activities();
+        if(response.status === 200){
+            setActivities(JSON.parse(response.data));
+        }
+        else{
+            alert(response.data)
+        }
+    }
 
-    const buy_ticket = (activity:any) => {
-        console.log(activity);
-        alert("currently does nothing. need to sign user up for the activity and reduce balance")
+    const fetch_user_balance = async () => {
+        const response = await UsersService.get_user_balance(sessionStorage.getItem("userToken") || "");
+        if(response.status === 200){
+            setUserBalance(response.data.balance);
+        }
+        else{
+            alert(response.data)
+        }
+    }
+    const is_only_friends_change = () => {
+        setIsOnlyFriends(!isOnlyFriends);
+    };
+
+    const sign_up = async(activity:any) => {
+        if(userBalance < activity.price) {
+            alert("Not enough balance");
+        }
+        else{
+            const response = await ActivitiesService.sign_user_to_activity(sessionStorage.getItem("userToken") || "", activity);
+            if(response.status == 200){
+                const priceNegative = (-1) * activity.price;
+                await UsersService.add_user_balance(sessionStorage.getItem("userToken") || "", priceNegative);
+                fetch_user_balance();
+                fetch_activities();
+                alert("Signed up successfully.");
+            }
+            else{
+                alert("Failed signing up.");
+            }
+        }
     }
 
 	return (
@@ -55,21 +86,21 @@ export const ExplorePage = () => {
                     <tbody>
                         <tr>
                             <td><h1>All activities</h1></td>
-                            <td><input type="checkbox" checked={isOnlyFriends} onChange={OnIsOnlyFriendsChange}></input> Show only friends</td>
+                            <td><input type="checkbox" checked={isOnlyFriends} onChange={is_only_friends_change}></input> Show only friends</td>
                         </tr>
                     </tbody>
                 </table>
                 {activities.map((activity, index) => (
-                    <div className="border">
-                        <ActivityView key={index} activity={activity} />
-                        <button onClick={() => buy_ticket(activity)} key={index}>Buy ticket</button>
+                    <div className="border" key={index}>
+                        <ActivityView activity={activity} />
+                        <button onClick={() => sign_up(activity)}>Sign up</button>
                     </div>
                 ))}
             </div>
 
             {/* right column */}
             <div className="two_column">
-                <h2>Upcoming activities</h2>
+                <h1>Your upcoming activities</h1>
                 <p>show here</p>
             </div>
         </div>

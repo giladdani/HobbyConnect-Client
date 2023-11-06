@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import UtilsService from '../../services/UtilsService'
+import UsersService from '../../services/UsersService';
 // const UtilsService = require("../../services/UtilsService");
 
 export const GrantCredits = () => {
@@ -7,7 +7,7 @@ export const GrantCredits = () => {
     const [amount, setAmount] = useState("")
 
     const grant_credits = async() => {
-        const response = await UtilsService.grant_credits(sessionStorage.getItem("userToken")||"", amount, username);
+        const response = await UsersService.add_user_balance(sessionStorage.getItem("userToken")||"", amount);
         if(response.status === 200) {
             alert("Credit granted!");
         }

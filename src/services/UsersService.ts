@@ -90,11 +90,28 @@ async function get_user_balance(userToken:string) {
     return {status: response.status, data};
 }
 
+async function add_user_balance(userToken:string, amount:any) {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/balance`,
+    {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': userToken
+        },
+        method: 'PUT',
+        body: JSON.stringify({amount: amount})
+    });
+    
+    const data = await response.text();
+    return {status: response.status, data};
+}
+
 const UsersService = {
     login,
     get_user_details,
     create_user,
     send_friend_request,
-    get_user_balance
+    get_user_balance,
+    add_user_balance
 }
 export default UsersService;

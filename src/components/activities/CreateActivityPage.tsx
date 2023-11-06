@@ -7,20 +7,25 @@ export const CreateActivityPage = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
-    // const [dateTime, setDateTime] = useState(new Date())
     const [dateTime, setDateTime] = useState("")
     const [location, setLocation] = useState("")
-    const [ticketPrice, seTicketPrice] = useState(0)
-    const [totalTickets, setTotalTickets] = useState(0)
+    const [totalParticipants, setTotalParticipants] = useState(0)
+    const [isPaid, setIsPaid] = useState(false);
+    const [price, setPrice] = useState(0)
 
-    const createActivity = async() => {
-        const response = await ActivitiesService.create_activity({title, description, category, dateTime, location, ticketPrice, totalTickets}, sessionStorage.getItem("userToken") || "");
+    const create_activity = async() => {
+        let finalPrice = isPaid ? price : 0;
+        const response = await ActivitiesService.create_activity({title, description, category, dateTime, location, totalParticipants, price: finalPrice}, sessionStorage.getItem("userToken") || "");
         if(response.status === 201){
             alert("Activity created!");
         }
         else{
             alert(response.data);
         }
+    }
+
+    const is_paid_change = () => {
+        setIsPaid(!isPaid);
     }
 
     return(
@@ -38,19 +43,22 @@ export const CreateActivityPage = () => {
                         <td><label>Category:</label></td><td><input type="text" value={category} onChange={(newValue) => { setCategory(newValue.target.value) }}></input></td>
                     </tr>
                     <tr>
-                        <td><label>Date & Time:</label></td><td><input type="datetime-local" value={dateTime} onChange={(newValue) => { setDateTime(newValue.target.value) }}></input></td>
+                        <td><label>When:</label></td><td><input type="datetime-local" value={dateTime} onChange={(newValue) => { setDateTime(newValue.target.value) }}></input></td>
                     </tr>
                     <tr>
                         <td><label>Location:</label></td><td><input type="text" value={location} onChange={(newValue) => { setLocation(newValue.target.value) }}></input></td>
                     </tr>
                     <tr>
-                        <td><label>Ticket Price:</label></td><td><input type="number" value={ticketPrice} onChange={(newValue) => { seTicketPrice(parseInt(newValue.target.value)) }}></input></td>
+                        <td><label>Number of participants:</label></td><td><input type="number" value={totalParticipants} onChange={(newValue) => { setTotalParticipants(parseInt(newValue.target.value)) }}></input></td>
                     </tr>
                     <tr>
-                        <td><label>Total Tickets:</label></td><td><input type="number" value={totalTickets} onChange={(newValue) => { setTotalTickets(parseInt(newValue.target.value)) }}></input></td>
+                        <td><label htmlFor="isPaidCheckbox">Is paid?</label><input type="checkbox" id="isPaidCheckbox" checked={isPaid} onChange={is_paid_change}></input></td>
+                    </tr>
+                    <tr hidden={!isPaid}>
+                        <td><label>Price:</label></td><td><input type="number" value={price} onChange={(newValue) => { setPrice(parseInt(newValue.target.value)) }}></input></td>
                     </tr>
                     <tr>
-                        <td colSpan={2}><button onClick={createActivity}>Create</button></td>
+                        <td colSpan={2}><button onClick={create_activity}>Create</button></td>
                     </tr>
                 </tbody>
             </table>

@@ -26,10 +26,10 @@ export const ActivityView = ({activity}:any) => {
                         <td><b>Location</b>: {activity.location}</td>
                     </tr>
                     <tr>
-                        <td><b>Ticket price</b>: ${activity.ticket_price}</td>
+                        <td><b>Price</b>: ${activity.price}</td>
                     </tr>
                     <tr>
-                        <td><b>Tickets left</b>: {activity.tickets_left}</td>
+                        <td><b>Participants</b>: {activity.participantsUsernames.length}/{activity.totalParticipants}</td>
                     </tr>
                 </tbody>
             </table>
