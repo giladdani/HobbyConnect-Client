@@ -3,38 +3,32 @@ import ActivitiesService from '../../services/ActivitiesService';
 import UsersService from '../../services/UsersService'
 import { ActivityView } from './ActivityView';
 
+interface Activity {
+    title: string;
+    participantsUsernames: string[];
+  }
+
 export const ExplorePage = () => {   
-	const [activities, setActivities] = useState([]);
+	const [activities, setActivities] = useState<Activity[]>([]);
     const [isOnlyFriends, setIsOnlyFriends] = useState(false);
     const [userBalance, setUserBalance] = useState(0);
+    const [username, setUsername] = useState("");
 
 	useEffect(() => {
-        // async function fetch_activities() {
-        //     const response = await ActivitiesService.fetch_activities();
-        //     if(response.status === 200){
-        //         setActivities(JSON.parse(response.data));
-        //     }
-        //     else{
-        //         alert(response.data)
-        //     }
-        // }
-
-        // async function fetch_user_balance() {
-        //     const response = await UsersService.get_user_balance(sessionStorage.getItem("userToken") || "");
-        //     if(response.status === 200){
-        //         setUserBalance(response.data.balance);
-        //     }
-        //     else{
-        //         alert(response.data)
-        //     }
-        // }
-
-        fetch_user_balance();
-        fetch_activities();
+        get_username();
+        get_user_balance();
+        get_activities();
     }, [])
 
-    const fetch_activities = async () => {
-        const response = await ActivitiesService.fetch_activities();
+    const get_username = async () => {
+        const response = await UsersService.get_user_details(sessionStorage.getItem("userToken") || "");
+        if(response.status == 200) {
+            setUsername(response.data.username);
+        }
+    }
+
+    const get_activities = async () => {
+        const response = await ActivitiesService.get_activities();
         if(response.status === 200){
             setActivities(JSON.parse(response.data));
         }
@@ -43,7 +37,7 @@ export const ExplorePage = () => {
         }
     }
 
-    const fetch_user_balance = async () => {
+    const get_user_balance = async () => {
         const response = await UsersService.get_user_balance(sessionStorage.getItem("userToken") || "");
         if(response.status === 200){
             setUserBalance(response.data.balance);
@@ -56,7 +50,7 @@ export const ExplorePage = () => {
         setIsOnlyFriends(!isOnlyFriends);
     };
 
-    const sign_up = async(activity:any) => {
+    const register = async(activity:any) => {
         if(userBalance < activity.price) {
             alert("Not enough balance");
         }
@@ -65,14 +59,30 @@ export const ExplorePage = () => {
             if(response.status == 200){
                 const priceNegative = (-1) * activity.price;
                 await UsersService.add_user_balance(sessionStorage.getItem("userToken") || "", priceNegative);
-                fetch_user_balance();
-                fetch_activities();
-                alert("Signed up successfully.");
+                get_user_balance();
+                get_activities();
+                alert("Signed up successfully");
+            }
+            else if(response.status == 409){
+                alert("Registration failed: Activity is full");
             }
             else{
-                alert("Failed signing up.");
+                alert("Registration failed")
             }
         }
+    }
+
+    const unregister = async(activity:any) => {
+        const response = await ActivitiesService.remove_user_from_activity(sessionStorage.getItem("userToken") || "", activity);
+            if(response.status == 200){
+                await UsersService.add_user_balance(sessionStorage.getItem("userToken") || "", activity.price);
+                get_user_balance();
+                get_activities();
+                alert("Registration canceled.");
+            }
+            else{
+                alert("Failed canceling registration.");
+            }
     }
 
 	return (
@@ -93,7 +103,10 @@ export const ExplorePage = () => {
                 {activities.map((activity, index) => (
                     <div className="border" key={index}>
                         <ActivityView activity={activity} />
-                        <button onClick={() => sign_up(activity)}>Sign up</button>
+                        {activity.participantsUsernames.includes(username) ? (
+                            <button onClick={() => unregister(activity)} className="redButton">Unregister</button>) 
+                            : (<button onClick={() => register(activity)} className="greenButton">Register</button>
+    )}
                     </div>
                 ))}
             </div>
@@ -101,7 +114,12 @@ export const ExplorePage = () => {
             {/* right column */}
             <div className="two_column">
                 <h1>Your upcoming activities</h1>
-                <p>show here</p>
+                {activities.filter(activity => activity.participantsUsernames.includes(username))
+                .map((activity, index) => (
+                    <div key={index}>
+                        {activity.title}<br />
+                    </div>
+                ))}
             </div>
         </div>
 	)

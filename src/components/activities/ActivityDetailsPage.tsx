@@ -15,8 +15,8 @@ export const ActivityDetailsPage = () => {
     const [activity, setActivity] = useState<null | Activity>(null);
 
 	useEffect(() => {
-        async function fetch_activity_data(id:any) {
-            const response = await ActivitiesService.fetch_activity_by_id(id);
+        async function get_activity_data(id:any) {
+            const response = await ActivitiesService.get_activity_by_id(id);
             if(response.status === 200){
                 setActivity(JSON.parse(response.data));
             }
@@ -24,7 +24,7 @@ export const ActivityDetailsPage = () => {
                 alert(response.data)
             }
         }
-        fetch_activity_data(id);
+        get_activity_data(id);
     })
 
 	return (

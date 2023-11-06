@@ -14,7 +14,7 @@ export const UserDetails = () => {
     const [user, setUser] = useState<null | User>(null);
 
     useEffect(() => {
-        async function fetch_user() {
+        async function get_user() {
             const response = await UsersService.get_user_details(sessionStorage.getItem("userToken") || "");
             if(response.status === 200){
                 setUser(response.data);
@@ -23,7 +23,7 @@ export const UserDetails = () => {
                 alert(response.data)
             }
         }
-        fetch_user();
+        get_user();
     }, [])
 
     return (

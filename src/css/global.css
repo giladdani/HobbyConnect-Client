@@ -9,6 +9,17 @@ button{
     margin:5px;
 }
 
+.greenButton {
+    background-color: green;
+    color: white;
+}
+  
+.redButton {
+    background-color: red;
+    color: white;
+}
+  
+
 ul{
     list-style-type: none;
 }

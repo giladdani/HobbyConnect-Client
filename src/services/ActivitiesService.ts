@@ -1,4 +1,4 @@
-async function fetch_activities() {
+async function get_activities() {
     const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/activities`,
     {
         headers: {
@@ -12,7 +12,7 @@ async function fetch_activities() {
     return {status: response.status, data};
 }
 
-async function fetch_activity_by_id(id:string) {
+async function get_activity_by_id(id:string) {
     const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/activities/${id}`,
     {
         headers: {
@@ -42,7 +42,22 @@ async function create_activity(activity:any, userToken:string) {
 }
 
 async function sign_user_to_activity(userToken:string, activity:any){
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/activities/signup`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/activities/register`,
+    {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': userToken
+        },
+        method: 'POST',
+        body: JSON.stringify({activity: activity})
+    })
+    const data = await response.text();
+    return {status: response.status, data};
+}
+
+async function remove_user_from_activity(userToken:string, activity:any){
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/activities/unregister`,
     {
         headers: {
             'Accept': 'application/json',
@@ -57,9 +72,10 @@ async function sign_user_to_activity(userToken:string, activity:any){
 }
 
 const ActivitiesService = {
-    fetch_activities,
-    fetch_activity_by_id,
+    get_activities,
+    get_activity_by_id,
     create_activity,
-    sign_user_to_activity
+    sign_user_to_activity,
+    remove_user_from_activity
 }
 export default ActivitiesService;
