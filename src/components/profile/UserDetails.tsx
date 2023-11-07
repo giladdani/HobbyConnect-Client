@@ -1,30 +1,21 @@
 import React, { useState, useEffect } from "react";
-import UsersService from '../../services/UsersService'
-// const UsersService = require("../../services/UsersService");
+// import UsersService from '../../services/UsersService'
 
-interface User {
-    username: string,
-    fullName: string,
-    balance: string,
-    role: string,
-    creation_date: string
-}
+export const UserDetails = ({user}:any) => {
+    // const [user, setUser] = useState<null | User>(null);
 
-export const UserDetails = () => {
-    const [user, setUser] = useState<null | User>(null);
-
-    useEffect(() => {
-        async function get_user() {
-            const response = await UsersService.get_user_details(sessionStorage.getItem("userToken") || "");
-            if(response.status === 200){
-                setUser(response.data);
-            }
-            else{
-                alert(response.data)
-            }
-        }
-        get_user();
-    }, [])
+    // useEffect(() => {
+    //     async function get_user() {
+    //         const response = await UsersService.get_user_details(sessionStorage.getItem("userToken") || "");
+    //         if(response.status === 200){
+    //             setUser(response.data);
+    //         }
+    //         else{
+    //             alert(response.data)
+    //         }
+    //     }
+    //     get_user();
+    // }, [])
 
     return (
         <div>
