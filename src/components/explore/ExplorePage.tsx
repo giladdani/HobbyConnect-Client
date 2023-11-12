@@ -106,7 +106,7 @@ export const ExplorePage = () => {
                         {activity.participantsUsernames.includes(username) ? (
                             <button onClick={() => unregister(activity)} className="redButton">Unregister</button>) 
                             : (<button onClick={() => register(activity)} className="greenButton">Register</button>
-    )}
+                        )}
                     </div>
                 ))}
             </div>
