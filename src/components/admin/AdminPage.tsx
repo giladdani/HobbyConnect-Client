@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { GenerateGiftCode } from "../giftcodes/GenerateGiftCode";
 import { GrantCredits } from "../giftcodes/GrantCredits";
+import UtilsService from "../../services/UtilsService";
+
+interface GiftCode {
+    code: string,
+    amount: number,
+    expired: boolean,
+}
 
 export const AdminPage = () => {
+    const [giftCodes, setGiftCodes] = useState([]);
+
+    useEffect(() => {
+        get_gift_codes();
+    }, [])
+
+    const get_gift_codes = async() => {
+        const response = await UtilsService.get_gift_codes(sessionStorage.getItem("userToken")||"");
+        if(response.status === 200) {
+            setGiftCodes(response.data);
+        }
+        else{
+            alert("Error on fetch gift codes");
+        }
+    }
+
+    const onGiftCodeCreated = () => {
+        get_gift_codes();
+    }
     return(
         <div>
             <h1 className="center_elem">Admin Console</h1>
@@ -18,7 +44,11 @@ export const AdminPage = () => {
                         </td>
                         <td>
                             <h2>Generate Gift Code</h2>
-                            <GenerateGiftCode />
+                            <GenerateGiftCode onGiftCodeCreated={onGiftCodeCreated}/>
+                            <h2>Existing Gift Codes</h2>
+                            {giftCodes.map((code:GiftCode, index) => {
+                                    return <div key={index}>{code.code} (${code.amount})</div>
+                                })}
                         </td> 
                     </tr>
                 </tbody>

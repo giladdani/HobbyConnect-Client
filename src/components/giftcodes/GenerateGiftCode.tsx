@@ -10,7 +10,7 @@ interface GiftCodeResponse {
 }
 
 
-export const GenerateGiftCode = () => {
+export const GenerateGiftCode = ({onGiftCodeCreated}:any) => {
     const [code, setCode] = useState("");
     const [codeValue, setCodeValue] = useState(0);
     const [selectedAmount, setSelectedAmount] = useState(1);
@@ -30,6 +30,7 @@ export const GenerateGiftCode = () => {
         const response = await UtilsService.insert_gift_code(sessionStorage.getItem("userToken")||"", code, codeValue);
         if(response.status === 201){
             alert("Code inserted.")
+            onGiftCodeCreated();
         }
         else{
             alert(response.data);

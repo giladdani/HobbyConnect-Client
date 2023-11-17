@@ -20,14 +20,14 @@ export const FriendsPage = () => {
 
     const get_friend_requests = async() => {
         const response = await UsersService.get_friend_requests(sessionStorage.getItem("userToken") || "");
-        if(response.status == 200){
+        if(response.status === 200){
             setFriendRequests(response.data);
         }
     }
 
     const get_friends = async() => {
         const response = await UsersService.get_friends(sessionStorage.getItem("userToken") || "");
-        if(response.status == 200){
+        if(response.status === 200){
             setFriends(response.data);
         }
     }
