@@ -64,7 +64,6 @@ export const MainPagesContainer = () => {
     element: <AdminPage />
   })
   
-  // const routes = pages.map((page, index) => <Route path={page.relativePath} element={page.element} extra_fn={page.extra_fn} key={index} />);
   const routes = pages.map((page, index) => <Route path={page.relativePath} element={page.element} key={index} />);
 
   return(

@@ -14,7 +14,7 @@ interface Pages {
 
 export const NavBar = (props:Pages) => {
     const pages_list = props.pages.map((page, index: number) =>{
-        return <li onClick={page.extra_fn} key={index}><NavBarItem name={page.name} relativePath={page.relativePath}></NavBarItem></li>
+        return <li data-name={page.name} onClick={page.extra_fn} key={index}><NavBarItem name={page.name} relativePath={page.relativePath}></NavBarItem></li>
     })
 
     return (

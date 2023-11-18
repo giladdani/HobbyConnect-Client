@@ -28,6 +28,10 @@ ul{
     display: flex;
 }
 
+#navbar ul{
+    width:100%;
+}
+
 #navbar li{
     display: inline;
     float:left;
@@ -38,6 +42,15 @@ ul{
     display: block;
     font-size: larger;
 }
+
+#navbar li[data-name="Logout"]{
+    float:right;
+}
+
+#navbar li[data-name="Logout"] a{
+    color:rgb(180, 0, 0);
+}
+
 
 a{
     font-weight: bold;
