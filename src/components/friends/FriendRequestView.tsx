@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-
-
-
 export const FriendRequestView = ({request, onRequestAnswered}:any) => {
     return (
         <div>
