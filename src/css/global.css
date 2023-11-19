@@ -107,16 +107,6 @@ body{
     color: orange;
 }
 
-.game_image{
-    max-width: 300px;
-    max-height: 300px;
-}
-
-.MuiOutlinedInput-root,
-.MuiIconButton-root {
-    color: white!important;
-}
-
 .two_column {
     float: left;
     width: 50%; /* Each column takes up 33.33% of the width */
