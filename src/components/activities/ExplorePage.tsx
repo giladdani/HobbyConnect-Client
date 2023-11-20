@@ -9,6 +9,7 @@ export const ExplorePage = () => {
     const [isOnlyFriends, setIsOnlyFriends] = useState(false);
     const [userBalance, setUserBalance] = useState(0);
     const [username, setUsername] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
 	useEffect(() => {
         get_username();
@@ -21,6 +22,9 @@ export const ExplorePage = () => {
         if(response.status === 200) {
             setUsername(response.data.username);
         }
+        else{
+            console.error(`Failed to get user, error: ${response.data}`)
+        }
     }
 
     const get_activities = async () => {
@@ -29,7 +33,7 @@ export const ExplorePage = () => {
             setActivities(JSON.parse(response.data));
         }
         else{
-            alert(response.data)
+            console.error(`Failed to get activities, error: ${response.data}`)
         }
     }
 
@@ -39,7 +43,7 @@ export const ExplorePage = () => {
             setUserBalance(response.data.balance);
         }
         else{
-            alert(response.data)
+            console.error(`Failed to get user balance, error: ${response.data}`)
         }
     }
     const is_only_friends_change = () => {
@@ -48,7 +52,7 @@ export const ExplorePage = () => {
 
     const register = async(activity:any) => {
         if(userBalance < activity.price) {
-            alert("Not enough balance");
+            setErrorMessage("Not enough balance");
         }
         else{
             const response = await ActivitiesService.sign_user_to_activity(sessionStorage.getItem("userToken") || "", activity);
@@ -60,10 +64,10 @@ export const ExplorePage = () => {
                 alert("Signed up successfully");
             }
             else if(response.status === 409){
-                alert("Registration failed: Activity is full");
+                setErrorMessage("Activity is full");
             }
             else{
-                alert("Registration failed")
+                setErrorMessage(response.data);
             }
         }
     }
@@ -74,16 +78,17 @@ export const ExplorePage = () => {
                 await UsersService.add_user_balance(sessionStorage.getItem("userToken") || "", username, activity.price);
                 get_user_balance();
                 get_activities();
-                alert("Registration canceled.");
+                alert("Registration canceled");
             }
             else{
-                alert("Failed canceling registration.");
+                setErrorMessage("Failed canceling registration");
             }
     }
 
 	return (
 		<div>
             <h1 className="center_elem">Explore activities</h1>
+            {errorMessage && <div className="errorMessage">{errorMessage}</div>}
             <h3>Current balance: ${userBalance}</h3>
 
             {/* left column */}

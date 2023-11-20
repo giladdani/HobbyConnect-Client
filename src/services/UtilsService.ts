@@ -78,12 +78,21 @@ function format_datetime(datetime:string) {
     return formattedDateTime;
 }
 
+function display_message(message:string, isSuccess:boolean, setMessage:Function, setIsMessageSuccess:Function) {
+    setIsMessageSuccess(isSuccess);
+    setMessage(message);
+    setTimeout(() => {
+        setMessage("");
+    }, 2000)
+}
+
 const UtilsService = {
     get_gift_codes,
     generate_gift_code,
     insert_gift_code,
     redeem_gift_code,
-    format_datetime
+    format_datetime,
+    display_message
 }
 
 export default UtilsService;

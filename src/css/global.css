@@ -18,7 +18,14 @@ button{
     background-color: red;
     color: white;
 }
-  
+
+.messageError {
+    color: red;
+}
+
+.messageSuccess {
+    color: green;
+}
 
 ul{
     list-style-type: none;

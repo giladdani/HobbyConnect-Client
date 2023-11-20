@@ -1,20 +1,27 @@
 import React, {useState} from "react";
 import UsersService from '../../services/UsersService';
+import UtilsService from "../../services/UtilsService";
 const logo =  require("../../images/logo.png")
 
 export const RegisterPage = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [fullName, setFullName] = useState("");
+    const [message, setMessage] = useState("");
+    const [isMessageSuccess, setIsMessageSuccess] = useState(false);
+
 
     const create_user = async() => {
         const response = await UsersService.create_user({username, password, fullName});
         if(response.status === 201){
-            alert("User created!");
-            window.location.href = '/login';
+            let msg = "User created! Redirecting..."
+            UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess)
+            setTimeout(() => {
+                window.location.href = '/login';
+            }, 1900)
         }
         else{
-            alert(response.data);
+            UtilsService.display_message(response.data, false, setMessage, setIsMessageSuccess);
         }
     }
 
@@ -24,6 +31,9 @@ export const RegisterPage = () => {
             <h1 className="center_elem">Register</h1>
             <table className="medium_window center_elem border">
                 <tbody>
+                    <tr>
+                        <td colSpan={2}>{message && <div className={isMessageSuccess ? "messageSuccess" : "messageError"}>{message}</div>}</td>
+                    </tr>
                     <tr>
                         <td><label>Username:</label></td><td><input type="text" value={username} onChange={(newValue) => { setUsername(newValue.target.value) }}></input></td>
                     </tr>
