@@ -4,11 +4,13 @@ export const UserDetails = ({user}:any) => {
 
     return (
         <div>
-            <h3 className="center_elem">{user ? user.username : ""}</h3>
             <table className="medium_window center_elem border">
                 <tbody>
                     <tr>
-                    <td><label>Full Name:</label></td><td><label>{user ? user.fullName : ""}</label></td>
+                        <td><label>Username:</label></td><td>{user ? user.username : ""}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Full Name:</label></td><td><label>{user ? user.fullName : ""}</label></td>
                     </tr>
                     <tr>
                         <td><label>Balance:</label></td><td><label>${user ? user.balance : ""}</label></td>
