@@ -4,21 +4,14 @@ import { LoginPage } from '../login/LoginPage'
 import { NavBar } from './NavBar'
 import { HomePage } from '../HomePage'
 import { ProfilePage } from '../profile/ProfilePage'
-import { ActivityDetailsPage } from '../activities/ActivityDetailsPage'
-import { ExplorePage } from '../explore/ExplorePage'
+import { ExplorePage } from '../activities/ExplorePage'
 import { CreateActivityPage } from '../activities/CreateActivityPage'
 import { FriendsPage } from '../friends/FriendsPage'
 import { AdminPage } from '../admin/AdminPage'
 import UsersService from '../../services/UsersService'
-const logo =  require("../../images/logo.png")
-
-interface User {
-  username: string,
-  fullName: string,
-  balance: string,
-  role: string,
-  creation_date: string
-}
+import { User } from '../../interfaces/User' 
+import { Page } from '../../interfaces/Page'
+const logo = require("../../images/logo.png")
 
 export const MainPagesContainer = () => {
   
@@ -48,7 +41,7 @@ export const MainPagesContainer = () => {
     sessionStorage.removeItem("userToken");
   }
 
-  const pages = [{
+  const pages:Page[] = [{
     name: "Home",
     relativePath: "/home",
     element: <HomePage />,
@@ -76,13 +69,9 @@ export const MainPagesContainer = () => {
     relativePath: "/login",
     element: <LoginPage />,
     extra_fn: deleteToken
-  },{
-    name: "",
-    relativePath: "explore/:id",
-    element: <ActivityDetailsPage />
   }]
-  // TODO: only add this page if user role is admin
-  if(user?.role == "admin"){
+
+  if(user?.role === "admin"){
     pages.push({
       name: "Admin Console",
       relativePath: "/admin",

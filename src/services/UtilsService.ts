@@ -19,7 +19,7 @@ async function get_gift_codes(userToken:string) {
     return {status: response.status, data: data};
 }
 
-async function generate_gift_code(userToken:any, amount:any) {
+async function generate_gift_code(userToken:any, value:any) {
     const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/giftcodes/generate`,
     {
         headers: {
@@ -28,14 +28,14 @@ async function generate_gift_code(userToken:any, amount:any) {
             'authorization': userToken
         },
         method: 'POST',
-        body: JSON.stringify({amount})
+        body: JSON.stringify({value})
     })
 
     const data = await response.json();
     return {status: response.status, data};
 }
 
-async function insert_gift_code(userToken:any, code:string, amount:any) {
+async function insert_gift_code(userToken:any, code:string, value:any) {
     const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/giftcodes`,
     {
         headers: {
@@ -44,7 +44,7 @@ async function insert_gift_code(userToken:any, code:string, amount:any) {
             'authorization': userToken
         },
         method: 'POST',
-        body: JSON.stringify({code, amount})
+        body: JSON.stringify({code, value})
     })
 
     const data = await response.text();

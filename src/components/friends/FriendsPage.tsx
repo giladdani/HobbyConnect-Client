@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import UsersService from '../../services/UsersService';
 import { FriendRequestView } from "./FriendRequestView";
-
-interface FriendRequest {
-    sender: string,
-    receiver: string,
-    creationDate: string,
-}
+import { FriendRequest } from "../../interfaces/FriendRequest";
 
 export const FriendsPage = () => {
 	const [receiver, setReceiver] = useState("");

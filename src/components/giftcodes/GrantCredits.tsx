@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import UsersService from '../../services/UsersService';
-// const UtilsService = require("../../services/UtilsService");
 
 export const GrantCredits = () => {
 	const [username, setUsername] = useState("")

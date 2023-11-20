@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import UsersService from '../../services/UsersService';
 const logo =  require("../../images/logo.png")
-// const UsersService = require("../../services/UsersService");
 
 export const RegisterPage = () => {
     const [username, setUsername] = useState("");

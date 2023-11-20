@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react";
 import { GenerateGiftCode } from "../giftcodes/GenerateGiftCode";
 import { GrantCredits } from "../giftcodes/GrantCredits";
 import UtilsService from "../../services/UtilsService";
-
-interface GiftCode {
-    code: string,
-    amount: number,
-    expired: boolean,
-}
+import { GiftCode } from "../../interfaces/GiftCode";
 
 export const AdminPage = () => {
     const [giftCodes, setGiftCodes] = useState([]);
@@ -47,7 +42,7 @@ export const AdminPage = () => {
                             <GenerateGiftCode onGiftCodeCreated={onGiftCodeCreated}/>
                             <h2>Existing Gift Codes</h2>
                             {giftCodes.map((code:GiftCode, index) => {
-                                    return <div key={index}>{code.code} (${code.amount})</div>
+                                    return <div key={index}>{code.code} (${code.value})</div>
                                 })}
                         </td> 
                     </tr>

@@ -1,25 +1,15 @@
 import React, { useState } from "react";
 import UtilsService from '../../services/UtilsService'
-
-interface GiftCodeResponse {
-    status: number;
-    data: {
-        code: string;
-        amount: number;
-    };
-}
-
+import { GiftCode } from '../../interfaces/GiftCode'
 
 export const GenerateGiftCode = ({onGiftCodeCreated}:any) => {
-    const [code, setCode] = useState("");
-    const [codeValue, setCodeValue] = useState(0);
-    const [selectedAmount, setSelectedAmount] = useState(1);
+    const [generatedGiftCode, setGeneratedGiftCode] = useState<GiftCode>();
+    const [selectedValue, setSelectedValue] = useState(1);
 
     const generate_code = async() => {
-        const response:GiftCodeResponse = await UtilsService.generate_gift_code(sessionStorage.getItem("userToken")||"", selectedAmount);
+        const response = await UtilsService.generate_gift_code(sessionStorage.getItem("userToken") || "", selectedValue);
         if(response.status === 200){
-            setCode(response.data.code);
-            setCodeValue(response.data.amount)
+            setGeneratedGiftCode(response.data);
         }
         else{
             alert(response.data);
@@ -27,13 +17,18 @@ export const GenerateGiftCode = ({onGiftCodeCreated}:any) => {
     }
 
     const insert_code = async () => {
-        const response = await UtilsService.insert_gift_code(sessionStorage.getItem("userToken")||"", code, codeValue);
-        if(response.status === 201){
-            alert("Code inserted.")
-            onGiftCodeCreated();
+        if(generatedGiftCode) {
+            const response = await UtilsService.insert_gift_code(sessionStorage.getItem("userToken")||"", generatedGiftCode.code, generatedGiftCode.value);
+            if(response.status === 201){
+                alert("Code inserted.")
+                onGiftCodeCreated();
+            }
+            else{
+                alert(response.data);
+            }
         }
-        else{
-            alert(response.data);
+        else {
+            alert("No gift code generated yet");
         }
     }
 
@@ -43,8 +38,8 @@ export const GenerateGiftCode = ({onGiftCodeCreated}:any) => {
                 <tr>
                     <td>
                         <button onClick={generate_code}>Generate</button>
-                        <button onClick={insert_code} disabled={code === ''}>Confirm </button>
-                        <select value={selectedAmount} onChange={(newValue) => { setSelectedAmount(parseInt(newValue.target.value))}}>
+                        <button onClick={insert_code} disabled={!generatedGiftCode}>Confirm</button>
+                        <select value={selectedValue} onChange={(newValue) => { setSelectedValue(parseInt(newValue.target.value))}}>
                             <option value={1}>$1</option>
                             <option value={5}>$5</option>
                             <option value={20}>$20</option>
@@ -54,10 +49,10 @@ export const GenerateGiftCode = ({onGiftCodeCreated}:any) => {
                     </td>
                 </tr>
                 <tr>
-                    <td>Code: <input type="text" value={code} readOnly></input></td>
+                    <td>Code: <input type="text" value={generatedGiftCode?.code ?? ""} readOnly></input></td>
                 </tr>
                 <tr>
-                    <td>Value: <input type="text" value={codeValue} readOnly></input></td>
+                    <td>Value: <input type="text" value={generatedGiftCode?.value ?? ""} readOnly></input></td>
                 </tr>
             </tbody>
         </table>

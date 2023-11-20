@@ -2,14 +2,7 @@ import { UserDetails } from './UserDetails';
 import { RedeemGiftCode } from '../giftcodes/RedeemGiftCode';
 import React, { useState, useEffect } from "react";
 import UsersService from '../../services/UsersService'
-
-interface User {
-    username: string,
-    fullName: string,
-    balance: string,
-    role: string,
-    creation_date: string
-}
+import { User } from '../../interfaces/User';
 
 export const ProfilePage = () => {
 	const [user, setUser] = useState<null | User>(null);

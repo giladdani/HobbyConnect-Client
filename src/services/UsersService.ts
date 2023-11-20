@@ -1,9 +1,3 @@
-interface User {
-    username: string,
-    password: string,
-    fullName: string
-}
-
 async function login(username:string, password:string) {
     const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/login`,
     {
@@ -40,7 +34,7 @@ async function get_user_details(userToken:string) {
     return {status: response.status, data};
 }
 
-async function create_user(user:User) {
+async function create_user(user:any) {
     const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users`,
     {
         headers: {

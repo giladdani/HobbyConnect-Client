@@ -1,20 +1,10 @@
 import React from "react";
 import { NavBarItem } from "./NavBarItem";
+import { Page } from "../../interfaces/Page";
 
-interface Page {
-    name: string,
-    relativePath: string,
-    element: JSX.Element,
-    extra_fn?(): void
-}
-
-interface Pages {
-    pages: Page[]
-}
-
-export const NavBar = (props:Pages) => {
+export const NavBar = (props: { pages: Page[] }) => {
     const pages_list = props.pages.map((page, index: number) =>{
-        return <li data-name={page.name} onClick={page.extra_fn} key={index}><NavBarItem name={page.name} relativePath={page.relativePath}></NavBarItem></li>
+        return <li data-name={page.name} onClick={page.extra_fn} key={index}><NavBarItem name={page.name} relativePath={page.relativePath} element={page.element}></NavBarItem></li>
     })
 
     return (
