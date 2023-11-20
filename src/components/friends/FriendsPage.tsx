@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import UsersService from '../../services/UsersService';
 import { FriendRequestView } from "./FriendRequestView";
 import { FriendRequest } from "../../interfaces/FriendRequest";
+import UtilsService from "../../services/UtilsService";
 
 export const FriendsPage = () => {
 	const [receiver, setReceiver] = useState("");
     const [friends, setFriends] = useState([]);
     const [friendRequests, setFriendRequests] = useState([]);
+    const [message, setMessage] = useState("");
+    const [isMessageSuccess, setIsMessageSuccess] = useState(false);
 
     useEffect(() => {
         get_friends();
@@ -28,22 +31,26 @@ export const FriendsPage = () => {
     }
 
 	const send_request = async() => {
+        let msg;
 		const response = await UsersService.send_friend_request(sessionStorage.getItem("userToken")||"", receiver);
         if(response.status === 201) {
-            alert("Request sent!");
+            msg = "Request sent!";
+            UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);
         }
         else{
-            alert(response.data);
+            UtilsService.display_message(response.data, false, setMessage, setIsMessageSuccess);
         }
 	}
 
     const onRequestAnswered = async(answer:Boolean, sender:any) => {
+        let msg;
         const response = await UsersService.update_friend_request_status(sessionStorage.getItem("userToken")||"", sender, answer);
         if(response.status === 201) {
-            alert("Done!");
+            msg = "Done!";
+            UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);   
         }
         else{
-            alert(response.data);
+            UtilsService.display_message(response.data, false, setMessage, setIsMessageSuccess);
         }
     }
 

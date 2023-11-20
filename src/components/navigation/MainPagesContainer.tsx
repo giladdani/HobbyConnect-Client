@@ -33,7 +33,7 @@ export const MainPagesContainer = () => {
 			setUser(response.data);
 		}
 		else{
-			alert(response.data)
+			console.error(response.data)
 		}
 	}
 

@@ -1,17 +1,21 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import UtilsService from '../../services/UtilsService'
 
 export const RedeemGiftCode = ({OnCodeRedeemed}:any) => {
 	const [code, setCode] = useState("")
+    const [message, setMessage] = useState("");
+    const [isMessageSuccess, setIsMessageSuccess] = useState(false);
 
     const redeem_code = async() => {
+        let msg;
         const response = await UtilsService.redeem_gift_code(sessionStorage.getItem("userToken")||"", code);
         if(response.status === 200) {
-            alert("Code redeemed successfully!");
+            msg = "Code redeemed successfully!";
+            UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);
             OnCodeRedeemed();
         }
         else{
-            alert(response.data);
+            UtilsService.display_message(response.data, false, setMessage, setIsMessageSuccess);
         }
     }
 

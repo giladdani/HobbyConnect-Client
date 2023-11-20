@@ -5,6 +5,8 @@ import { GiftCode } from '../../interfaces/GiftCode'
 export const GenerateGiftCode = ({onGiftCodeCreated}:any) => {
     const [generatedGiftCode, setGeneratedGiftCode] = useState<GiftCode>();
     const [selectedValue, setSelectedValue] = useState(1);
+    const [message, setMessage] = useState("");
+    const [isMessageSuccess, setIsMessageSuccess] = useState(false);
 
     const generate_code = async() => {
         const response = await UtilsService.generate_gift_code(sessionStorage.getItem("userToken") || "", selectedValue);
@@ -12,33 +14,37 @@ export const GenerateGiftCode = ({onGiftCodeCreated}:any) => {
             setGeneratedGiftCode(response.data);
         }
         else{
-            alert(response.data);
+            UtilsService.display_message(response.data, false, setMessage, setIsMessageSuccess);
         }
     }
 
     const insert_code = async () => {
+        let msg;
         if(generatedGiftCode) {
             const response = await UtilsService.insert_gift_code(sessionStorage.getItem("userToken")||"", generatedGiftCode.code, generatedGiftCode.value);
             if(response.status === 201){
-                alert("Code inserted.")
+                msg = "Code inserted."
+                UtilsService.display_message(response.data, true, setMessage, setIsMessageSuccess);
                 onGiftCodeCreated();
             }
             else{
-                alert(response.data);
+                UtilsService.display_message(response.data, false, setMessage, setIsMessageSuccess);
             }
         }
         else {
-            alert("No gift code generated yet");
+            msg = "No gift code generated yet";
+            UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);
         }
     }
 
     return (
-        <table>
+        <table className="center_elem">
             <tbody>
                 <tr>
+                    <td colSpan={2}><div className={isMessageSuccess ? "messageSuccess" : "messageError"}>{message}</div></td>
+                </tr>
+                <tr>
                     <td>
-                        <button onClick={generate_code}>Generate</button>
-                        <button onClick={insert_code} disabled={!generatedGiftCode}>Confirm</button>
                         <select value={selectedValue} onChange={(newValue) => { setSelectedValue(parseInt(newValue.target.value))}}>
                             <option value={1}>$1</option>
                             <option value={5}>$5</option>
@@ -46,6 +52,8 @@ export const GenerateGiftCode = ({onGiftCodeCreated}:any) => {
                             <option value={50}>$50</option>
                             <option value={100}>$100</option>
                         </select>
+                        <button onClick={generate_code}>Generate</button>
+                        <button onClick={insert_code} disabled={!generatedGiftCode}>Confirm</button>
                     </td>
                 </tr>
                 <tr>
