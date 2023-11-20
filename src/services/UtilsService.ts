@@ -67,11 +67,23 @@ async function redeem_gift_code(userToken:string, code:string) {
     return {status: response.status, data};
 }
 
+function format_datetime(datetime:string) {
+    const dateObject = new Date(datetime);
+    const day = String(dateObject.getUTCDate()).padStart(2, '0');
+    const month = String(dateObject.getUTCMonth() + 1).padStart(2, '0');
+    const year = dateObject.getUTCFullYear();
+    const hours = String(dateObject.getUTCHours()).padStart(2, '0');
+    const minutes = String(dateObject.getUTCMinutes()).padStart(2, '0');
+    const formattedDateTime = `${day}/${month}/${year} - ${hours}:${minutes}`;
+    return formattedDateTime;
+}
+
 const UtilsService = {
     get_gift_codes,
     generate_gift_code,
     insert_gift_code,
-    redeem_gift_code
+    redeem_gift_code,
+    format_datetime
 }
 
 export default UtilsService;
