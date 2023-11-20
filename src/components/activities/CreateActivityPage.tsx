@@ -17,13 +17,12 @@ export const CreateActivityPage = () => {
     const create_activity = async() => {
         let finalPrice = isPaid ? price : 0;
         const response = await ActivitiesService.create_activity({title, description, category, dateTime, location, totalParticipants, price: finalPrice}, sessionStorage.getItem("userToken") || "");
-        if(response.status === 201){
-            setMessage("Activity created!");
-            setIsMessageSuccess(true);
+        if(response.status === 201) {
+            let msg = "Activity created!";
+            UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);
         }
         else{
-            setMessage(response.data);
-            setIsMessageSuccess(false);
+            UtilsService.display_message(response.data, false, setMessage, setIsMessageSuccess);
         }
     }
 
@@ -37,7 +36,7 @@ export const CreateActivityPage = () => {
             <table className="medium_window center_elem">
                 <tbody>
                     <tr>
-                        <td colSpan={2}>{message && <div className={isMessageSuccess ? "messageSuccess" : "messageError"}>{message}</div>}</td>
+                        <td colSpan={2}><div className={isMessageSuccess ? "messageSuccess" : "messageError"}>{message}</div></td>
                     </tr>
                     <tr>
                         <td><label>Title:</label></td><td><input type="text" value={title} onChange={(newValue) => { setTitle(newValue.target.value) }}></input></td>

@@ -17,7 +17,7 @@ export const AdminPage = () => {
             setGiftCodes(response.data);
         }
         else{
-            alert("Error on fetch gift codes");
+            console.error("Error on fetch gift codes");
         }
     }
 

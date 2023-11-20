@@ -3,13 +3,15 @@ import ActivitiesService from '../../services/ActivitiesService';
 import UsersService from '../../services/UsersService'
 import { ActivityView } from './ActivityView';
 import { Activity } from '../../interfaces/Activity';
+import UtilsService from '../../services/UtilsService';
 
 export const ExplorePage = () => {   
 	const [activities, setActivities] = useState<Activity[]>([]);
     const [isOnlyFriends, setIsOnlyFriends] = useState(false);
     const [userBalance, setUserBalance] = useState(0);
     const [username, setUsername] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
+    const [message, setMessage] = useState("");
+    const [isMessageSuccess, setIsMessageSuccess] = useState(false);
 
 	useEffect(() => {
         get_username();
@@ -52,43 +54,49 @@ export const ExplorePage = () => {
 
     const register = async(activity:any) => {
         if(userBalance < activity.price) {
-            setErrorMessage("Not enough balance");
+            let msg = "Not enough balance";
+            UtilsService.display_message(msg, false, setMessage, setIsMessageSuccess);
         }
         else{
+            let msg;
             const response = await ActivitiesService.sign_user_to_activity(sessionStorage.getItem("userToken") || "", activity);
             if(response.status === 200){
                 const priceNegative = (-1) * activity.price;
                 await UsersService.add_user_balance(sessionStorage.getItem("userToken") || "", username, priceNegative);
                 get_user_balance();
                 get_activities();
-                alert("Signed up successfully");
+                msg = "Signed up successfully";
+                UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);
             }
             else if(response.status === 409){
-                setErrorMessage("Activity is full");
+                msg = "Activity is full";
+                UtilsService.display_message(msg, false, setMessage, setIsMessageSuccess);
             }
             else{
-                setErrorMessage(response.data);
+                UtilsService.display_message(response.data, false, setMessage, setIsMessageSuccess);
             }
         }
     }
 
     const unregister = async(activity:any) => {
+        let msg;
         const response = await ActivitiesService.remove_user_from_activity(sessionStorage.getItem("userToken") || "", activity);
             if(response.status === 200){
                 await UsersService.add_user_balance(sessionStorage.getItem("userToken") || "", username, activity.price);
                 get_user_balance();
                 get_activities();
-                alert("Registration canceled");
+                msg = "Unregistered successfully"
+                UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);
             }
             else{
-                setErrorMessage("Failed canceling registration");
+                UtilsService.display_message(response.data, false, setMessage, setIsMessageSuccess);
             }
     }
 
 	return (
 		<div>
             <h1 className="center_elem">Explore activities</h1>
-            {errorMessage && <div className="errorMessage">{errorMessage}</div>}
+            <div className={isMessageSuccess ? "messageSuccess" : "messageError"}>{message}</div>
             <h3>Current balance: ${userBalance}</h3>
 
             {/* left column */}

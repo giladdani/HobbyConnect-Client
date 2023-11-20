@@ -32,7 +32,7 @@ export const RegisterPage = () => {
             <table className="medium_window center_elem border">
                 <tbody>
                     <tr>
-                        <td colSpan={2}>{message && <div className={isMessageSuccess ? "messageSuccess" : "messageError"}>{message}</div>}</td>
+                        <td colSpan={2}><div className={isMessageSuccess ? "messageSuccess" : "messageError"}>{message}</div></td>
                     </tr>
                     <tr>
                         <td><label>Username:</label></td><td><input type="text" value={username} onChange={(newValue) => { setUsername(newValue.target.value) }}></input></td>

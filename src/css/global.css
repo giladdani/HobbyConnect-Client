@@ -9,6 +9,11 @@ button{
     margin:5px;
 }
 
+a {
+    color: #8accff;
+    text-decoration: none;
+}
+
 .greenButton {
     background-color: green;
     color: white;
@@ -58,15 +63,18 @@ ul{
     color:rgb(180, 0, 0);
 }
 
-
-a{
-    font-weight: bold;
+#navbar a {
     text-decoration: none;
-    color: #8accff
+    padding: 10px;
+    border-radius: 10px;
+    color: #8accff;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-a:hover{
-    color:#3d98d9
+#navbar a:hover {
+    color: #cedbe5;
+    background-color: #0d1e36;
 }
 
 .center_elem{
@@ -92,7 +100,6 @@ a:hover{
 
 body{
     font-family: cursive;
-    /* background-color:#171a21; */
     background-color: #1b2838;
     color: #98acbb;
     font-family: Arial, Helvetica, sans-serif
