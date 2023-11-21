@@ -1,3 +1,5 @@
+import UtilsService from "../../services/UtilsService";
+
 export const FriendRequestView = ({request, onRequestAnswered}:any) => {
     return (
         <div>
@@ -7,7 +9,7 @@ export const FriendRequestView = ({request, onRequestAnswered}:any) => {
                         <td><b>From</b>: {request.sender}</td>
                     </tr>
                     <tr>
-                        <td><b>When</b>: {request.creationDate}</td>
+                        <td><b>When</b>: {UtilsService.format_datetime(request.creationDate)}</td>
                     </tr>
                     <tr>
                         <td><button className="greenButton" onClick={() => onRequestAnswered(true, request.sender)}>Accept</button></td>
