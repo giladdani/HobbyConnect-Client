@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Routes, Route } from "react-router-dom"
+import { StatusCodes } from "http-status-codes";
 import { LoginPage } from '../login/LoginPage'
 import { NavBar } from './NavBar'
 import { HomePage } from '../HomePage'
@@ -29,7 +30,7 @@ export const MainPagesContainer = () => {
 
   async function get_user() {
 		const response = await UsersService.get_user_details(sessionStorage.getItem("userToken") || "");
-		if(response.status === 200){
+		if(response.status === StatusCodes.OK){
 			setUser(response.data);
 		}
 		else{

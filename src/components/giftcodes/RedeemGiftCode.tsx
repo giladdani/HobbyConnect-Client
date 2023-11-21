@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { StatusCodes } from "http-status-codes";
 import UtilsService from '../../services/UtilsService'
 
 export const RedeemGiftCode = ({OnCodeRedeemed}:any) => {
@@ -9,7 +10,7 @@ export const RedeemGiftCode = ({OnCodeRedeemed}:any) => {
     const redeem_code = async() => {
         let msg;
         const response = await UtilsService.redeem_gift_code(sessionStorage.getItem("userToken")||"", code);
-        if(response.status === 200) {
+        if(response.status === StatusCodes.OK) {
             msg = "Code redeemed successfully!";
             UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);
             OnCodeRedeemed();

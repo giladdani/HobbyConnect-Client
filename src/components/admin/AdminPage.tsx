@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { StatusCodes } from "http-status-codes";
 import { GenerateGiftCode } from "../giftcodes/GenerateGiftCode";
 import { GrantCredits } from "../giftcodes/GrantCredits";
 import UtilsService from "../../services/UtilsService";
@@ -13,7 +14,7 @@ export const AdminPage = () => {
 
     const get_gift_codes = async() => {
         const response = await UtilsService.get_gift_codes(sessionStorage.getItem("userToken")||"");
-        if(response.status === 200) {
+        if(response.status === StatusCodes.OK) {
             setGiftCodes(response.data);
         }
         else{

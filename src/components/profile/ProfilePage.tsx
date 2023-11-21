@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes";
 import { UserDetails } from './UserDetails';
 import { RedeemGiftCode } from '../giftcodes/RedeemGiftCode';
 import React, { useState, useEffect } from "react";
@@ -13,7 +14,7 @@ export const ProfilePage = () => {
 
 	async function get_user() {
 		const response = await UsersService.get_user_details(sessionStorage.getItem("userToken") || "");
-		if(response.status === 200){
+		if(response.status === StatusCodes.OK){
 			setUser(response.data);
 		}
 		else{

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { StatusCodes } from "http-status-codes";
 import UtilsService from '../../services/UtilsService'
 import { GiftCode } from '../../interfaces/GiftCode'
 
@@ -10,7 +11,7 @@ export const GenerateGiftCode = ({onGiftCodeCreated}:any) => {
 
     const generate_code = async() => {
         const response = await UtilsService.generate_gift_code(sessionStorage.getItem("userToken") || "", selectedValue);
-        if(response.status === 200){
+        if(response.status === StatusCodes.OK){
             setGeneratedGiftCode(response.data);
         }
         else{
@@ -22,7 +23,7 @@ export const GenerateGiftCode = ({onGiftCodeCreated}:any) => {
         let msg;
         if(generatedGiftCode) {
             const response = await UtilsService.insert_gift_code(sessionStorage.getItem("userToken")||"", generatedGiftCode.code, generatedGiftCode.value);
-            if(response.status === 201){
+            if(response.status === StatusCodes.CREATED){
                 msg = "Code inserted."
                 UtilsService.display_message(response.data, true, setMessage, setIsMessageSuccess);
                 onGiftCodeCreated();

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { StatusCodes } from "http-status-codes";
 import UsersService from '../../services/UsersService';
 import { FriendRequestView } from "./FriendRequestView";
 import { FriendRequest } from "../../interfaces/FriendRequest";
@@ -18,14 +19,14 @@ export const FriendsPage = () => {
 
     const get_friend_requests = async() => {
         const response = await UsersService.get_friend_requests(sessionStorage.getItem("userToken") || "");
-        if(response.status === 200){
+        if(response.status === StatusCodes.OK){
             setFriendRequests(response.data);
         }
     }
 
     const get_friends = async() => {
         const response = await UsersService.get_friends(sessionStorage.getItem("userToken") || "");
-        if(response.status === 200){
+        if(response.status === StatusCodes.OK){
             setFriends(response.data);
         }
     }
@@ -33,11 +34,15 @@ export const FriendsPage = () => {
 	const send_request = async() => {
         let msg;
 		const response = await UsersService.send_friend_request(sessionStorage.getItem("userToken")||"", receiver);
-        if(response.status === 201) {
+        if(response.status === StatusCodes.CREATED) {
             msg = "Request sent!";
             UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);
         }
-        else{
+        else if(response.status === StatusCodes.FORBIDDEN){
+            msg = "Can't send request to yourself";
+            UtilsService.display_message(msg, false, setMessage, setIsMessageSuccess);
+        }
+        else {
             UtilsService.display_message(response.data, false, setMessage, setIsMessageSuccess);
         }
 	}
@@ -45,7 +50,7 @@ export const FriendsPage = () => {
     const onRequestAnswered = async(answer:Boolean, sender:any) => {
         let msg;
         const response = await UsersService.update_friend_request_status(sessionStorage.getItem("userToken")||"", sender, answer);
-        if(response.status === 201) {
+        if(response.status === StatusCodes.CREATED) {
             msg = "Done!";
             UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);   
         }

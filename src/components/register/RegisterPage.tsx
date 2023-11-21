@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { StatusCodes } from "http-status-codes";
 import UsersService from '../../services/UsersService';
 import UtilsService from "../../services/UtilsService";
 const logo =  require("../../images/logo.png")
@@ -13,7 +14,7 @@ export const RegisterPage = () => {
 
     const create_user = async() => {
         const response = await UsersService.create_user({username, password, fullName});
-        if(response.status === 201){
+        if(response.status === StatusCodes.CREATED){
             let msg = "User created! Redirecting..."
             UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess)
             setTimeout(() => {

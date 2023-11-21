@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { StatusCodes } from "http-status-codes";
 import ActivitiesService from '../../services/ActivitiesService';
 import UtilsService from "../../services/UtilsService";
 
@@ -17,7 +18,7 @@ export const CreateActivityPage = () => {
     const create_activity = async() => {
         let finalPrice = isPaid ? price : 0;
         const response = await ActivitiesService.create_activity({title, description, category, dateTime, location, totalParticipants, price: finalPrice}, sessionStorage.getItem("userToken") || "");
-        if(response.status === 201) {
+        if(response.status === StatusCodes.CREATED) {
             let msg = "Activity created!";
             UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);
         }

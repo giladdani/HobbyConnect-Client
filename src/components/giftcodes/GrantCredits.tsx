@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { StatusCodes } from "http-status-codes";
 import UsersService from '../../services/UsersService';
 import UtilsService from '../../services/UtilsService';
 
@@ -10,7 +11,7 @@ export const GrantCredits = () => {
 
     const grant_credits = async() => {
         const response = await UsersService.add_user_balance(sessionStorage.getItem("userToken")||"", username, amount);
-        if(response.status === 200) {
+        if(response.status === StatusCodes.OK) {
             let msg = "Credit granted!";
             UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);
         }

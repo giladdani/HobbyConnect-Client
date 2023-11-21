@@ -1,3 +1,5 @@
+import { StatusCodes } from "http-status-codes";
+
 async function login(username:string, password:string) {
     const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/login`,
     {
@@ -25,7 +27,7 @@ async function get_user_details(userToken:string) {
         method: 'GET'
     });
     
-    if(response.status === 200){
+    if(response.status === StatusCodes.OK){
         data = await response.json();
     }
     else{
@@ -60,7 +62,7 @@ async function get_friends(userToken:string) {
         method: 'GET'
     });
     
-    if(response.status === 200){
+    if(response.status === StatusCodes.OK){
         data = await response.json();
     }
     else{
@@ -81,7 +83,7 @@ async function get_friend_requests(userToken:string) {
         method: 'GET'
     });
     
-    if(response.status === 200){
+    if(response.status === StatusCodes.OK){
         data = await response.json();
     }
     else{
@@ -133,7 +135,7 @@ async function get_user_balance(userToken:string) {
         method: 'GET'
     });
     
-    if(response.status === 200){
+    if(response.status === StatusCodes.OK){
         data = await response.json();
     }
     else{

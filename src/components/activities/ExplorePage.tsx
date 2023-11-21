@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ActivitiesService from '../../services/ActivitiesService';
 import UsersService from '../../services/UsersService'
 import { ActivityView } from './ActivityView';
+import { StatusCodes } from "http-status-codes";
 import { Activity } from '../../interfaces/Activity';
 import UtilsService from '../../services/UtilsService';
 
@@ -21,7 +22,7 @@ export const ExplorePage = () => {
 
     const get_username = async () => {
         const response = await UsersService.get_user_details(sessionStorage.getItem("userToken") || "");
-        if(response.status === 200) {
+        if(response.status === StatusCodes.OK) {
             setUsername(response.data.username);
         }
         else{
@@ -31,7 +32,7 @@ export const ExplorePage = () => {
 
     const get_activities = async () => {
         const response = await ActivitiesService.get_activities();
-        if(response.status === 200){
+        if(response.status === StatusCodes.OK){
             setActivities(JSON.parse(response.data));
         }
         else{
@@ -41,7 +42,7 @@ export const ExplorePage = () => {
 
     const get_user_balance = async () => {
         const response = await UsersService.get_user_balance(sessionStorage.getItem("userToken") || "");
-        if(response.status === 200){
+        if(response.status === StatusCodes.OK){
             setUserBalance(response.data.balance);
         }
         else{
@@ -60,7 +61,7 @@ export const ExplorePage = () => {
         else{
             let msg;
             const response = await ActivitiesService.sign_user_to_activity(sessionStorage.getItem("userToken") || "", activity);
-            if(response.status === 200){
+            if(response.status === StatusCodes.OK){
                 const priceNegative = (-1) * activity.price;
                 await UsersService.add_user_balance(sessionStorage.getItem("userToken") || "", username, priceNegative);
                 get_user_balance();
@@ -68,7 +69,7 @@ export const ExplorePage = () => {
                 msg = "Signed up successfully";
                 UtilsService.display_message(msg, true, setMessage, setIsMessageSuccess);
             }
-            else if(response.status === 409){
+            else if(response.status === StatusCodes.CONFLICT){
                 msg = "Activity is full";
                 UtilsService.display_message(msg, false, setMessage, setIsMessageSuccess);
             }
@@ -81,7 +82,7 @@ export const ExplorePage = () => {
     const unregister = async(activity:any) => {
         let msg;
         const response = await ActivitiesService.remove_user_from_activity(sessionStorage.getItem("userToken") || "", activity);
-            if(response.status === 200){
+            if(response.status === StatusCodes.OK){
                 await UsersService.add_user_balance(sessionStorage.getItem("userToken") || "", username, activity.price);
                 get_user_balance();
                 get_activities();

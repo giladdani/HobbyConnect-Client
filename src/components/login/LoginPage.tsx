@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { StatusCodes } from "http-status-codes";
 import { NavLink } from "react-router-dom"
 import UsersService from '../../services/UsersService';
 import UtilsService from "../../services/UtilsService";
@@ -13,7 +14,7 @@ export const LoginPage = () => {
     const try_login = async() => {
         try{
             const response = await UsersService.login(username, password);
-            if(response.status === 200){
+            if(response.status === StatusCodes.OK){
                 sessionStorage.setItem("userToken", response.data);
                 window.location.href = '/home';
             }

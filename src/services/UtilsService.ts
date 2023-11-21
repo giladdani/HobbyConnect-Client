@@ -1,3 +1,5 @@
+import { StatusCodes } from "http-status-codes";
+
 async function get_gift_codes(userToken:string) {
     let data;
     const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/giftcodes`,
@@ -10,7 +12,7 @@ async function get_gift_codes(userToken:string) {
         method: 'GET'
     });
     
-    if(response.status === 200){
+    if(response.status === StatusCodes.OK){
         data = await response.json();
     }
     else{
