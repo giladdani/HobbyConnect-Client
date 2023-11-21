@@ -1,4 +1,5 @@
 import React from "react";
+import UtilsService from "../../services/UtilsService";
 
 export const UserDetails = ({user}:any) => {
 

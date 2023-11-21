@@ -20,7 +20,7 @@ export const GrantCredits = () => {
     }
 
 	return (
-		<table>
+		<table className="center_elem">
             <tbody>
                 <tr><td colSpan={2}><div className={isMessageSuccess ? "messageSuccess" : "messageError"}>{message}</div></td></tr>
                 <tr><td>Username:</td><td><input type="text" value={username} onChange={(newValue) => { setUsername(newValue.target.value) }}/></td></tr>

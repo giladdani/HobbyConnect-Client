@@ -61,6 +61,7 @@ export const FriendsPage = () => {
                     <tr>
                         <td>
                             <h2>Send Friend Request</h2>
+                            <div className={isMessageSuccess ? "messageSuccess" : "messageError"}>{message}</div>
 							<input type="text" placeholder="username" value={receiver} onChange={(newValue) => { setReceiver(newValue.target.value) }} />
 							<button onClick={send_request}>Send</button>
                         </td>
