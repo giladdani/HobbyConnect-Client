@@ -21,6 +21,7 @@ export const RedeemGiftCode = ({OnCodeRedeemed}:any) => {
 
 	return (
 		<>
+            <div className={isMessageSuccess ? "messageSuccess" : "messageError"}>{message}</div>
             <input type="text" value={code} onChange={(newValue) => { setCode(newValue.target.value) }}></input>
             <input type="button" value="Redeem" onClick={redeem_code}></input>
         </>
