@@ -15,6 +15,27 @@ async function login(username:string, password:string) {
     return {status: response.status, data};
 }
 
+async function get_users(userToken:string) {
+    let data;
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users`,
+    {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': userToken
+        },
+        method: 'GET'
+    });
+    
+    if(response.status === StatusCodes.OK){
+        data = await response.json();
+    }
+    else{
+        data = await response.text();
+    }
+    return {status: response.status, data};
+}
+
 async function get_user_details(userToken:string) {
     let data;
     const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/profile`,
@@ -162,6 +183,7 @@ async function add_user_balance(userToken:string, username:string, amount:number
 
 const UsersService = {
     login,
+    get_users,
     get_user_details,
     create_user,
     get_friends,
