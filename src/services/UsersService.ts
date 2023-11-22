@@ -78,6 +78,21 @@ async function get_logged_user_details(userToken:string) {
     return {status: response.status, data};
 }
 
+async function update_user_status(userToken:string, username:string, status:string) {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/${username}`,
+    {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': userToken
+        },
+        method: 'PUT',
+        body: JSON.stringify({status: status})
+    })
+    const data = await response.text();
+    return {status: response.status, data};
+}
+
 async function delete_user(userToken:string, username:string) {
     const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/${username}`,
     {
@@ -221,6 +236,7 @@ const UsersService = {
     get_users,
     get_user,
     get_logged_user_details,
+    update_user_status,
     delete_user,
     create_user,
     get_friends,
