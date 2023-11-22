@@ -79,7 +79,7 @@ async function get_logged_user_details(userToken:string) {
 }
 
 async function update_user_status(userToken:string, username:string, status:string) {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/${username}`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/status/${username}`,
     {
         headers: {
             'Accept': 'application/json',
