@@ -13,7 +13,7 @@ export const ProfilePage = () => {
     }, [])
 
 	async function get_user() {
-		const response = await UsersService.get_user_details(sessionStorage.getItem("userToken") || "");
+		const response = await UsersService.get_logged_user_details(sessionStorage.getItem("userToken") || "");
 		if(response.status === StatusCodes.OK){
 			setUser(response.data);
 		}

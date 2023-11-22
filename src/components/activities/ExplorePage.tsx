@@ -21,7 +21,7 @@ export const ExplorePage = () => {
     }, [])
 
     const get_username = async () => {
-        const response = await UsersService.get_user_details(sessionStorage.getItem("userToken") || "");
+        const response = await UsersService.get_logged_user_details(sessionStorage.getItem("userToken") || "");
         if(response.status === StatusCodes.OK) {
             setUsername(response.data.username);
         }
@@ -98,7 +98,7 @@ export const ExplorePage = () => {
 		<div>
             <h1 className="center_elem">Explore activities</h1>
             <div className={isMessageSuccess ? "messageSuccess" : "messageError"}>{message}</div>
-            <h3>Current balance: ${userBalance}</h3>
+            <h3>Current balance: <span style={{"color": "green"}}>${userBalance}</span></h3>
 
             {/* left column */}
             <div className="two_column">

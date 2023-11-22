@@ -6,25 +6,26 @@ import UtilsService from "../../services/UtilsService";
 import UsersService from "../../services/UsersService";
 import { GiftCode } from "../../interfaces/GiftCode";
 import { User } from "../../interfaces/User";
+import ManageUsers from "./ManageUsers";
 
 export const AdminPage = () => {
     const [giftCodes, setGiftCodes] = useState([]);
-    const [users, setUsers] = useState([]);
+    // const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        get_users();
+        // get_users();
         get_gift_codes();
     }, [])
 
-    const get_users = async() => {
-        const response = await UsersService.get_users(sessionStorage.getItem("userToken")||"");
-        if(response.status === StatusCodes.OK) {
-            setUsers(response.data);
-        }
-        else{
-            console.error("Error on fetch users");
-        }
-    }
+    // const get_users = async() => {
+    //     const response = await UsersService.get_users(sessionStorage.getItem("userToken")||"");
+    //     if(response.status === StatusCodes.OK) {
+    //         setUsers(response.data);
+    //     }
+    //     else{
+    //         console.error("Error on fetch users");
+    //     }
+    // }
 
     const get_gift_codes = async() => {
         const response = await UtilsService.get_gift_codes(sessionStorage.getItem("userToken")||"");
@@ -46,19 +47,12 @@ export const AdminPage = () => {
                 <tbody>
                     <tr>
                         <td>
-                            <h2>Manage Users</h2>
-                            {users.map((user:User, index) => {
-                                return <div key={index}>{user.username}</div>
-                            })}
-                        </td>
-                        <td>
-                            <h2>Grant Credits</h2>
-                            <GrantCredits />
+                            <ManageUsers />
                         </td>
                         <td>
                             <h2>Generate Gift Code</h2>
                             <GenerateGiftCode onGiftCodeCreated={onGiftCodeCreated}/>
-                            <h2>Existing Gift Codes</h2>
+                            <p><b><u>Existing Gift Codes:</u></b></p>
                             {giftCodes.map((code:GiftCode, index) => {
                                     return <div key={index}>{code.code} (${code.value})</div>
                                 })}

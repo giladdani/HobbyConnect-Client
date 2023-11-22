@@ -4,77 +4,13 @@
     width: 500px;
 }
 
-button{
-    padding:5px;
-    margin:5px;
-}
-
 a {
     color: #8accff;
     text-decoration: none;
 }
 
-.greenButton {
-    background-color: green;
-    color: white;
-}
-  
-.redButton {
-    background-color: red;
-    color: white;
-}
-
-.messageError {
-    color: red;
-}
-
-.messageSuccess {
-    color: green;
-}
-
 ul{
     list-style-type: none;
-}
-
-#navbar{
-    display: flex;
-}
-
-#navbar ul{
-    width:100%;
-}
-
-#navbar li{
-    display: inline;
-    float:left;
-    margin:15px;
-}
-
-#navbar a {
-    display: block;
-    font-size: larger;
-}
-
-#navbar li[data-name="Logout"]{
-    float:right;
-}
-
-#navbar li[data-name="Logout"] a{
-    color:rgb(180, 0, 0);
-}
-
-#navbar a {
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 10px;
-    color: #8accff;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-#navbar a:hover {
-    color: #cedbe5;
-    background-color: #0d1e36;
 }
 
 .center_elem{
@@ -127,4 +63,111 @@ body{
     padding: 15px;
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
     border: 1px solid #ccc; /* Optional: Add border for better visibility */
+}
+
+/* popup modal */
+.modal-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+  
+.modal-content {
+    background: #fff;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    text-align: left;
+}
+
+.modal-content button, .modal-content input {
+    width:100px;
+    float:right;
+}
+  
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}  
+
+  /* Message */
+.messageError {
+    color: red;
+}
+
+.messageSuccess {
+    color: green;
+}
+
+/* Buttons */
+button{
+    padding:5px;
+    margin:5px;
+}
+
+.greenButton {
+    background-color: green;
+    color: white;
+}
+  
+.redButton {
+    background-color: red;
+    color: white;
+}
+
+.blueButton {
+    background-color: lightskyblue;
+    color: darkblue;
+}
+
+/* NavBar */
+#navbar{
+    display: flex;
+}
+
+#navbar ul{
+    width:100%;
+}
+
+#navbar li{
+    display: inline;
+    float:left;
+    margin:15px;
+}
+
+#navbar a {
+    display: block;
+    font-size: larger;
+}
+
+#navbar li[data-name="Logout"]{
+    float:right;
+}
+
+#navbar li[data-name="Logout"] a{
+    color:rgb(180, 0, 0);
+}
+
+#navbar a {
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: #8accff;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#navbar a:hover {
+    color: #cedbe5;
+    background-color: #0d1e36;
 }
