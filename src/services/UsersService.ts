@@ -79,7 +79,7 @@ async function get_logged_user_details(userToken:string) {
 }
 
 async function update_user_status(userToken:string, username:string, status:string) {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/status/${username}`,
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/status`,
     {
         headers: {
             'Accept': 'application/json',
@@ -87,7 +87,22 @@ async function update_user_status(userToken:string, username:string, status:stri
             'authorization': userToken
         },
         method: 'PUT',
-        body: JSON.stringify({status: status})
+        body: JSON.stringify({username: username, status: status})
+    })
+    const data = await response.text();
+    return {status: response.status, data};
+}
+
+async function update_user_role(userToken:string, username:string, role:string) {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_SERVER_PORT}/api/users/role`,
+    {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': userToken
+        },
+        method: 'PUT',
+        body: JSON.stringify({username: username, role: role})
     })
     const data = await response.text();
     return {status: response.status, data};
@@ -237,6 +252,7 @@ const UsersService = {
     get_user,
     get_logged_user_details,
     update_user_status,
+    update_user_role,
     delete_user,
     create_user,
     get_friends,
